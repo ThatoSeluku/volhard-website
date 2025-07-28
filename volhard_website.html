@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volhard Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #111D4A;
+            --secondary: #45F0DF;
+            --accent: #C2CAE8;
+            --text: #2D3748;
+            --text-light: #718096;
+            --white: #FFFFFF;
+            --surface: #F7FAFC;
+            --gradient: linear-gradient(135deg, #111D4A 0%, #2A3F7A 100%);
+            --shadow: 0 4px 25px rgba(17, 29, 74, 0.08);
+            --shadow-hover: 0 8px 40px rgba(17, 29, 74, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--surface);
+            color: var(--text);
+            line-height: 1.7;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Header with glassmorphism */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(17, 29, 74, 0.95);
+            color: white;
+        }
+
+        header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            transition: color 0.3s ease;
+        }
+
+        header.scrolled h1 {
+            color: white;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        header.scrolled nav a {
+            color: white;
+        }
+
+        /* Hero section with modern gradients */
+        .hero {
+            min-height: 100vh;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+            z-index: 2;
+        }
+
+        .hero h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+            font-weight: 400;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--secondary);
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(69, 240, 223, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(69, 240, 223, 0.6);
+        }
+
+        /* Floating elements */
+        .hero-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .floating-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            color: white;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Modern tagline section */
+        .tagline-section {
+            background: var(--secondary);
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .tagline-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .tagline-section p {
+            font-size: 1.2rem;
+            color: var(--primary);
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Hero Banner Section */
+        .hero-banner {
+            position: relative;
+            min-height: 60vh;
+            background: linear-gradient(rgba(17, 29, 74, 0.7), rgba(17, 29, 74, 0.8)), 
+                        url('./assets/volhard_banner.jpeg') center center;
+            background-size: cover;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .hero-banner-content {
+            max-width: 1200px;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .banner-overlay h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .banner-overlay p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            background: rgba(69, 240, 223, 0.1);
+            border-color: rgba(69, 240, 223, 0.3);
+        }
+
+        .stat-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.8;
+            font-weight: 500;
+        }
+
+        /* Section styling */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            letter-spacing: -1px;
+        }
+
+        .section-intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        /* Modern grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Enhanced cards */
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: var(--shadow);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--primary) 100%);
+        }
+
+        .card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--secondary) 0%, rgba(69, 240, 223, 0.8) 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--primary);
+        }
+
+        .card h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Industries section with special styling */
+        /* #industries {
+            background: linear-gradient(135deg, var(--surface) 0%, rgba(194, 202, 232, 0.2) 100%);
+        } */
+
+        /* Contact form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--surface);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(69, 240, 223, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(17, 29, 74, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 6rem 1rem 4rem;
+            }
+
+            .hero-visual {
+                margin-top: 3rem;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .section {
+                padding: 4rem 1rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .hero-banner {
+                background-attachment: scroll;
+                min-height: 50vh;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .stat-item {
+                padding: 1.5rem 1rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Smooth scroll offset for fixed header */
+        html {
+            scroll-padding-top: 80px;
+        }
+    </style>
+    <!-- Favicon -->
+<link rel="icon" type="image/png" href="./Assets/Favicon.png" sizes="32x32">
+<link rel="apple-touch-icon" href="./favicon.png">
+<meta name="theme-color" content="#111D4A">
+    <meta name="description" content="Volhard Consulting - Empowering Digital Transformation through Microsoft Power Platform solutions.">
+    <meta name="keywords" content="Volhard, Microsoft Power Platform, Digital Transformation, Automation, Power Apps, Power Automate, Power BI">
+    <meta name="author" content="Volhard Consulting">
+    <link rel="canonical" href="https://www.volhard.com/">
+    <meta property="og:title" content="Volhard Consulting - Empowering Digital Transformation">
+    <meta property="og:description" content="Volhard Consulting specializes in Microsoft Power Platform solutions, helping businesses automate processes and gain insights through Power Apps, Power Automate, and Power BI.">
+    <meta property="og:image" content="https://www.volhard.com/assets/volhard_banner.jpeg">
+    <meta property="og:url" content="https://www.volhard.com/">
+    <meta property="og:type" content="website">                                                           
+</head>
+<body>
+    <header id="header">
+        <h1>Volhard</h1>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <!-- <a href="#industries">Industries</a> -->
+            <a href="#case-studies">Case Studies</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Empowering Digital Transformation</h2>
+            <p>Through intelligent automation and cutting-edge Microsoft Power Platform solutions</p>
+            <button class="cta-button" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                Get Started
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-card">
+                <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">Power Platform Excellence</h3>
+                <p style="margin: 0; opacity: 0.8;">Transforming businesses through innovative solutions</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="tagline-section">
+        <h2>Adapt. Automate. Accelerate.</h2>
+        <p>Built on persistence and innovation, Volhard helps organizations harness the full potential of Microsoft Power Platform to create efficient, data-driven solutions.</p>
+    </section>
+
+    <!-- Hero Banner Section -->
+    <section class="hero-banner">
+        <div class="hero-banner-content">
+            <div class="banner-overlay">
+                <h2>Trusted by Industry Leaders</h2>
+                <p>Backed by industry leaders throughout various industires.</p>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">Projects Delivered</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Years experience</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">11X</div>
+                        <div class="stat-label">Microsoft Certified</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<section class="tagline-section">
+    <h2>Industry Backed Skills</h2>
+    <p></p>
+    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; margin-top: 2rem;">
+        <img src="./assets/Certifications/AzureDataEngineer.png" alt="Azure Data Engineer" style="height: 100px;">
+        <img src="./assets/Certifications/AzureDataFundamentals.png" alt="Azure Data Fundamentals" style="height: 100px;">
+        <img src="./assets/Certifications/AzureFundamentals.png" alt="Azure AI Fundamentals" style="height: 100px;">
+        <img src="./assets/Certifications/Dynamics365Fundamentals.png" alt="Dynamics 365 Fundamentals" style="height: 100px;">
+        <img src="./assets/Certifications/PowerBIDeveloper.png" alt="Power BI Data Analyst" style="height: 100px;">
+        <img src="./assets/Certifications/PowerPlatformConsultant.png" alt="Power Platform Functional Consultant" style="height: 100px;">
+        <img src="./assets/Certifications/PowerPlatformDeveloper.png" alt="Power Platform Developer" style="height: 100px;">
+        <img src="./assets/Certifications/PowerPlatformsFunamentals.png" alt="Power Platform Fundamentals" style="height: 100px;">
+        <img src="./assets/Certifications/PowerPlatformSolutionArchitect.png" alt="Power Platform Solutions Architect" style="height: 100px;">
+    </div>
+</section>
+
+<!-- Hero Banner Section -->
+<section class="hero-banner">
+    <div class="hero-banner-content">
+        <div class="banner-overlay">
+            <h2>Who's Behind Volhard?</h2>
+            <p>Thato Seluku is an 11X Microsoft Certified Power Platform Developer who's delivered excellence for industry leaders such as EY, PwC, BridgeStone, FNB and more.</p>
+            <img src="./assets/ThatoSeluku.jpeg" 
+                 alt="Thato Seluku" 
+                 style="border-radius: 50%; width: 150px; height: 150px; margin-top: 1rem;">
+        </div>
+    </div>
+</section>
+
+    <section id="services" class="section fade-in">
+        <h3>Our Services</h3>
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zm0 7l-10 5 10 5 10-5-10-5zM2 17l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h4>Power Apps Development</h4>
+                <p>Custom applications tailored to your unique business requirements, designed for scalability and user experience.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M2 12l9 8V4l-9 8zm11-8v16l9-8-9-8z"/>
+                    </svg>
+                </div>
+                <h4>Power Automate</h4>
+                <p>Streamlined automation workflows that eliminate manual processes and boost operational efficiency across your organization.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 4h2v16H4V4zm4 4h2v12H8V8zm4-2h2v14h-2V6zm4 4h2v10h-2V10z"/>
+                    </svg>
+                </div>
+                <h4>Power BI Analytics</h4>
+                <p>Advanced reporting and data insights that transform raw information into actionable intelligence for strategic decision-making.</p>
+            </div>
+        </div>
+    </section>
+<!-- 
+    <section id="industries" class="section fade-in">
+        <h3>Industries We Serve</h3>
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                </div>
+                <h4>Financial Services</h4>
+                <p>Enable comprehensive financial insights, automate compliance workflows, and enhance customer experiences through digital transformation.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10z"/>
+                    </svg>
+                </div>
+                <h4>Public Sector</h4>
+                <p>Support digital transformation initiatives and deliver citizen-centric services that improve government efficiency and transparency.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                </div>
+                <h4>Operations Excellence</h4>
+                <p>Optimize business processes for improved performance, scalability, and operational excellence across all organizational functions.</p>
+            </div>
+        </div>
+    </section> -->
+
+    <section id="client-reviews" class="section fade-in">
+    <h3>Client Reviews</h3>
+    <div class="grid" style="grid-template-columns: repeat(2, 1fr); gap: 2rem; justify-items: center;">
+               <img src="./assets/Reviews/Growing_And_Developing_Review.png" alt="Growing and Developing Review" style="width: 100%; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+        <img src="./assets/Reviews/Pharmadynamics_Review.png" alt="Pharmadynamics Review" style="width: 100%; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+        <img src="./assets/Reviews/ProjectICR_Review.png" alt="Project ICR Review" style="width: 100%; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+       <img src="./assets/Reviews/Anglo_Project_Signoff.png" alt="Anglo Project Signoff" style="width: 100%; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+        <img src="./assets/Reviews/USA_Review.png" alt="USA Review" style="width: 100%; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+     
+
+    </div>
+</section>
+    
+
+    <section id="contact" class="section fade-in">
+        <h3>Let's Transform Together</h3>
+     <form name="contact" method="POST" data-netlify="true">
+  <input type="hidden" name="form-name" value="contact">
+  <div class="form-group">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required>
+  </div>
+  <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" required>
+  </div>
+  <div class="form-group">
+      <label for="company">Company</label>
+      <input type="text" id="company" name="company">
+  </div>
+  <div class="form-group">
+      <label for="message">Tell us about your project</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+  </div>
+  <button type="submit" class="submit-btn">Send Message</button>
+</form>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Volhard Consulting. All rights reserved. | Empowering Digital Transformation</p>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+    </script>
+</body>
+</html>
