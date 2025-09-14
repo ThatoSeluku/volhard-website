@@ -17,7 +17,6 @@
       --gradient: linear-gradient(135deg, #111D4A 0%, #2A3F7A 100%);
       --shadow: 0 4px 25px rgba(17, 29, 74, 0.08);
       --shadow-hover: 0 8px 40px rgba(17, 29, 74, 0.15);
-      --success: #48BB78;
     }
 
     * {
@@ -35,7 +34,6 @@
       overflow-x: hidden;
     }
 
-    /* Header */
     header {
       position: fixed;
       top: 0;
@@ -69,29 +67,25 @@
       color: white;
     }
 
-    nav {
-      display: flex;
-      gap: 2rem;
-    }
-
-    nav a {
+    .back-link {
       color: var(--text);
       text-decoration: none;
       font-weight: 500;
       font-size: 0.95rem;
-      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       transition: all 0.3s ease;
     }
 
-    nav a:hover {
+    .back-link:hover {
       color: var(--secondary);
     }
 
-    header.scrolled nav a {
+    header.scrolled .back-link {
       color: white;
     }
 
-    /* Main */
     .main-content {
       min-height: 100vh;
       padding: 8rem 2rem 4rem;
@@ -120,7 +114,6 @@
       margin: 0 auto;
     }
 
-    /* Form */
     .form-section {
       background: var(--white);
       border-radius: 20px;
@@ -161,8 +154,8 @@
       border: 2px solid rgba(0, 0, 0, 0.1);
       border-radius: 12px;
       font-size: 1rem;
-      background: var(--surface);
       transition: all 0.3s ease;
+      background: var(--surface);
     }
 
     .form-group input:focus,
@@ -184,7 +177,10 @@
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
 
     .submit-btn:hover {
@@ -192,7 +188,12 @@
       box-shadow: 0 8px 25px rgba(17, 29, 74, 0.3);
     }
 
-    /* Success Message */
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
     .success-message {
       display: none;
       text-align: center;
@@ -200,12 +201,8 @@
       border: 1px solid rgba(72, 187, 120, 0.3);
       border-radius: 16px;
       padding: 3rem 2rem;
-      color: var(--success);
+      color: #48BB78;
       margin-top: 2rem;
-    }
-
-    .success-message.active {
-      display: block;
     }
 
     footer {
@@ -226,26 +223,27 @@
 <body>
   <header id="header">
     <h1>Volhard</h1>
-    <nav>
-      <a href="index.html#services">Services</a>
-      <a href="ScheduleMaster-ProProductPage.html">ScheduleMaster</a>
-      <a href="index.html#client-reviews">Reviews</a>
-      <a href="index.html#contact">Contact</a>
-    </nav>
+    <a href="ScheduleMaster-ProProductPage.html" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M11.67 3.87L9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z"/>
+      </svg>
+      Back to Product
+    </a>
   </header>
 
   <div class="main-content">
     <div class="page-header">
       <h1>Book Your Demo</h1>
-      <p>Schedule a personalized demo of ScheduleMaster Pro and see how it can transform your resource management.</p>
+      <p>Schedule a personalized 30-minute demo of ScheduleMaster Pro and see how it can transform your resource management.</p>
     </div>
 
     <div class="form-section">
       <h2>Your Details</h2>
       <form name="demo-booking" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+        <!-- Hidden fields -->
         <input type="hidden" name="form-name" value="demo-booking">
         <p style="display:none;">
-          <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+          <label>Don’t fill this out: <input name="bot-field" /></label>
         </p>
 
         <div class="form-row">
@@ -269,9 +267,47 @@
           <input type="text" id="company" name="company" required>
         </div>
 
+        <div class="form-row">
+          <div class="form-group">
+            <label for="jobTitle">Job Title</label>
+            <input type="text" id="jobTitle" name="job_title">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone">
+          </div>
+        </div>
+
         <div class="form-group">
-          <label for="jobTitle">Job Title</label>
-          <input type="text" id="jobTitle" name="job_title">
+          <label for="companySize">Company Size</label>
+          <select id="companySize" name="company_size">
+            <option value="">Select company size</option>
+            <option value="1-10">1-10 employees</option>
+            <option value="11-50">11-50 employees</option>
+            <option value="51-200">51-200 employees</option>
+            <option value="201-1000">201-1000 employees</option>
+            <option value="1000+">1000+ employees</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="industry">Industry</label>
+          <select id="industry" name="industry">
+            <option value="">Select industry</option>
+            <option value="consulting">Consulting</option>
+            <option value="legal">Legal Services</option>
+            <option value="accounting">Accounting</option>
+            <option value="marketing">Marketing/Advertising</option>
+            <option value="real-estate">Real Estate</option>
+            <option value="healthcare">Healthcare</option>
+            <option value="education">Education</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="resources">What resources do you need to schedule? *</label>
+          <textarea id="resources" name="resources" rows="3" required></textarea>
         </div>
 
         <div class="form-group">
@@ -279,12 +315,13 @@
           <textarea id="challenges" name="challenges" rows="3"></textarea>
         </div>
 
-        <button type="submit" class="submit-btn">Book Demo</button>
+        <button type="submit" class="submit-btn">Schedule Demo</button>
       </form>
 
-      <div class="success-message" id="successMessage">
-        <h2>Thank you!</h2>
-        <p>Your demo request has been submitted. We’ll get back to you within 24 hours.</p>
+      <!-- Success message -->
+      <div class="success-message" id="form-success">
+        <h2>Demo Booked Successfully!</h2>
+        <p>We've received your request. Our team will reach out shortly with confirmation details.</p>
       </div>
     </div>
   </div>
@@ -301,6 +338,38 @@
         header.classList.add('scrolled');
       } else {
         header.classList.remove('scrolled');
+      }
+    });
+
+    // Form submission handling (custom success inside page)
+    document.querySelector('form[name="demo-booking"]').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const form = e.target;
+      const formData = new FormData(form);
+
+      const submitBtn = form.querySelector('.submit-btn');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Booking...';
+      submitBtn.disabled = true;
+
+      try {
+        const response = await fetch('/', {
+          method: 'POST',
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(formData).toString()
+        });
+
+        if (response.ok) {
+          form.style.display = 'none';
+          document.getElementById('form-success').style.display = 'block';
+        } else {
+          throw new Error('Network response was not ok');
+        }
+      } catch (error) {
+        alert('Sorry, there was an error booking your demo. Please try again or contact us directly.');
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
       }
     });
   </script>
