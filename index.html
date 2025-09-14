@@ -384,11 +384,6 @@
             line-height: 1.6;
         }
 
-        /* Industries section with special styling */
-        /* #industries {
-            background: linear-gradient(135deg, var(--surface) 0%, rgba(194, 202, 232, 0.2) 100%);
-        } */
-
         /* Contact form */
         .contact-form {
             max-width: 600px;
@@ -446,6 +441,12 @@
             box-shadow: 0 8px 25px rgba(17, 29, 74, 0.3);
         }
 
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         /* Footer */
         footer {
             background: var(--primary);
@@ -496,6 +497,10 @@
             .stat-number {
                 font-size: 2.5rem;
             }
+
+            #client-reviews .grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Scroll animations */
@@ -523,7 +528,7 @@
             <a href="#about">About</a>
             <a href="#services">Services</a>
             <!-- <a href="#industries">Industries</a> -->
-            <a href="#case-studies">Case Studies</a>
+            <a href="#client-reviews">Reviews</a>
             <a href="#contact">Contact</a>
         </nav>
     </header>
@@ -557,7 +562,7 @@
         <div class="hero-banner-content">
             <div class="banner-overlay">
                 <h2>Trusted by Industry Leaders</h2>
-                <p>Backed by industry leaders throughout various industires.</p>
+                <p>Backed by industry leaders throughout various industries.</p>
                 <div class="stats-grid">
                     <div class="stat-item">
                         <div class="stat-number">10+</div>
@@ -575,34 +580,35 @@
             </div>
         </div>
     </section>
-<section class="tagline-section">
-    <h2>Industry Backed Skills</h2>
-    <p></p>
-    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; margin-top: 2rem;">
-        <img src="./assets/Certifications/AzureDataEngineer.png" alt="Azure Data Engineer" style="height: 100px;">
-        <img src="./assets/Certifications/AzureDataFundamentals.png" alt="Azure Data Fundamentals" style="height: 100px;">
-        <img src="./assets/Certifications/AzureFundamentals.png" alt="Azure AI Fundamentals" style="height: 100px;">
-        <img src="./assets/Certifications/Dynamics365Fundamentals.png" alt="Dynamics 365 Fundamentals" style="height: 100px;">
-        <img src="./assets/Certifications/PowerBIDeveloper.png" alt="Power BI Data Analyst" style="height: 100px;">
-        <img src="./assets/Certifications/PowerPlatformConsultant.png" alt="Power Platform Functional Consultant" style="height: 100px;">
-        <img src="./assets/Certifications/PowerPlatformDeveloper.png" alt="Power Platform Developer" style="height: 100px;">
-        <img src="./assets/Certifications/PowerPlatformsFunamentals.png" alt="Power Platform Fundamentals" style="height: 100px;">
-        <img src="./assets/Certifications/PowerPlatformSolutionArchitect.png" alt="Power Platform Solutions Architect" style="height: 100px;">
-    </div>
-</section>
 
-<!-- Hero Banner Section -->
-<section class="hero-banner">
-    <div class="hero-banner-content">
-        <div class="banner-overlay">
-            <h2>Who's Behind Volhard?</h2>
-            <p>Thato Seluku is an 11X Microsoft Certified Power Platform Developer who's delivered excellence for industry leaders such as EY, PwC, BridgeStone, FNB and more.</p>
-            <img src="./assets/ThatoSeluku.jpeg" 
-                 alt="Thato Seluku" 
-                 style="border-radius: 50%; width: 150px; height: 150px; margin-top: 1rem;">
+    <section class="tagline-section">
+        <h2>Industry Backed Skills</h2>
+        <p></p>
+        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; margin-top: 2rem;">
+            <img src="./assets/Certifications/AzureDataEngineer.png" alt="Azure Data Engineer" style="height: 100px;">
+            <img src="./assets/Certifications/AzureDataFundamentals.png" alt="Azure Data Fundamentals" style="height: 100px;">
+            <img src="./assets/Certifications/AzureFundamentals.png" alt="Azure AI Fundamentals" style="height: 100px;">
+            <img src="./assets/Certifications/Dynamics365Fundamentals.png" alt="Dynamics 365 Fundamentals" style="height: 100px;">
+            <img src="./assets/Certifications/PowerBIDeveloper.png" alt="Power BI Data Analyst" style="height: 100px;">
+            <img src="./assets/Certifications/PowerPlatformConsultant.png" alt="Power Platform Functional Consultant" style="height: 100px;">
+            <img src="./assets/Certifications/PowerPlatformDeveloper.png" alt="Power Platform Developer" style="height: 100px;">
+            <img src="./assets/Certifications/PowerPlatformsFunamentals.png" alt="Power Platform Fundamentals" style="height: 100px;">
+            <img src="./assets/Certifications/PowerPlatformSolutionArchitect.png" alt="Power Platform Solutions Architect" style="height: 100px;">
         </div>
-    </div>
-</section>
+    </section>
+
+    <!-- Hero Banner Section -->
+    <section class="hero-banner">
+        <div class="hero-banner-content">
+            <div class="banner-overlay">
+                <h2>Who's Behind Volhard?</h2>
+                <p>Thato Seluku is an 11X Microsoft Certified Power Platform Developer who's delivered excellence for industry leaders such as EY, PwC, BridgeStone, FNB and more.</p>
+                <img src="./assets/ThatoSeluku.jpeg" 
+                     alt="Thato Seluku" 
+                     style="border-radius: 50%; width: 150px; height: 150px; margin-top: 1rem;">
+            </div>
+        </div>
+    </section>
 
     <section id="services" class="section fade-in">
         <h3>Our Services</h3>
@@ -636,58 +642,28 @@
             </div>
         </div>
     </section>
-<!-- 
-    <section id="industries" class="section fade-in">
-        <h3>Industries We Serve</h3>
-        <div class="grid">
-            <div class="card">
-                <div class="card-icon">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
-                </div>
-                <h4>Financial Services</h4>
-                <p>Enable comprehensive financial insights, automate compliance workflows, and enhance customer experiences through digital transformation.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10z"/>
-                    </svg>
-                </div>
-                <h4>Public Sector</h4>
-                <p>Support digital transformation initiatives and deliver citizen-centric services that improve government efficiency and transparency.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                    </svg>
-                </div>
-                <h4>Operations Excellence</h4>
-                <p>Optimize business processes for improved performance, scalability, and operational excellence across all organizational functions.</p>
-            </div>
-        </div>
-    </section> -->
 
     <section id="client-reviews" class="section fade-in">
-    <h3>Client Reviews</h3>
-    <div class="grid" style="grid-template-columns: repeat(2, 1fr); gap: 2rem; justify-items: center;">
-               <img src="./assets/Reviews/Growing_And_Developing_Review.png" alt="Growing and Developing Review" style="width: 100%; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
-        <img src="./assets/Reviews/Pharmadynamics_Review.png" alt="Pharmadynamics Review" style="width: 100%; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
-        <img src="./assets/Reviews/ProjectICR_Review.png" alt="Project ICR Review" style="width: 100%; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
-       <img src="./assets/Reviews/Anglo_Project_Signoff.png" alt="Anglo Project Signoff" style="width: 100%; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
-        <img src="./assets/Reviews/USA_Review.png" alt="USA Review" style="width: 100%; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
-     
-
-    </div>
-</section>
+        <h3>Client Reviews</h3>
+        <div class="grid" style="grid-template-columns: repeat(2, 1fr); gap: 2rem; justify-items: center;">
+            <img src="./assets/Reviews/Growing_And_Developing_Review.png" alt="Growing and Developing Review" style="width: 100%; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+            <img src="./assets/Reviews/Pharmadynamics_Review.png" alt="Pharmadynamics Review" style="width: 100%; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+            <img src="./assets/Reviews/ProjectICR_Review.png" alt="Project ICR Review" style="width: 100%; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+            <img src="./assets/Reviews/Anglo_Project_Signoff.png" alt="Anglo Project Signoff" style="width: 100%; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+            <img src="./assets/Reviews/USA_Review.png" alt="USA Review" style="width: 100%; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+        </div>
+    </section>
     
-
     <section id="contact" class="section fade-in">
         <h3>Let's Transform Together</h3>
         <div class="contact-form">
-            <form>
+            <!-- Updated form with Netlify attributes -->
+            <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+                <!-- Hidden honeypot field for spam protection -->
+                <p style="display: none;">
+                    <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                </p>
+                
                 <div class="form-group">
                     <label for="name">Full Name</label>
                     <input type="text" id="name" name="name" required>
@@ -706,6 +682,12 @@
                 </div>
                 <button type="submit" class="submit-btn">Send Message</button>
             </form>
+            
+            <!-- Success message (initially hidden) -->
+            <div id="form-success" style="display: none; text-align: center; color: #111D4A; margin-top: 2rem;">
+                <h4>Thank you for your message!</h4>
+                <p>We'll get back to you within 24 hours.</p>
+            </div>
         </div>
     </section>
 
@@ -742,10 +724,39 @@
             observer.observe(el);
         });
 
-        // Form submission
-        document.querySelector('form').addEventListener('submit', (e) => {
+        // Updated form submission for Netlify
+        document.querySelector('form[name="contact"]').addEventListener('submit', async (e) => {
             e.preventDefault();
-            alert('Thank you for your message! We\'ll get back to you soon.');
+            
+            const form = e.target;
+            const formData = new FormData(form);
+            
+            // Show loading state
+            const submitBtn = form.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            try {
+                const response = await fetch('/', {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams(formData).toString()
+                });
+                
+                if (response.ok) {
+                    // Hide form and show success message
+                    form.style.display = 'none';
+                    document.getElementById('form-success').style.display = 'block';
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            } catch (error) {
+                alert('Sorry, there was an error sending your message. Please try again or contact us directly.');
+                // Reset button
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
         });
     </script>
 </body>
