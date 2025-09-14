@@ -1,993 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book a Demo - ScheduleMaster Pro | Volhard Consulting</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #111D4A;
-            --secondary: #45F0DF;
-            --accent: #C2CAE8;
-            --text: #2D3748;
-            --text-light: #718096;
-            --white: #FFFFFF;
-            --surface: #F7FAFC;
-            --gradient: linear-gradient(135deg, #111D4A 0%, #2A3F7A 100%);
-            --shadow: 0 4px 25px rgba(17, 29, 74, 0.08);
-            --shadow-hover: 0 8px 40px rgba(17, 29, 74, 0.15);
-            --success: #48BB78;
-            --warning: #ED8936;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--surface);
-            color: var(--text);
-            line-height: 1.7;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
-
-        /* Header with glassmorphism */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        header.scrolled {
-            background: rgba(17, 29, 74, 0.95);
-            color: white;
-        }
-
-        header h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 1.8rem;
-            color: var(--primary);
-            letter-spacing: -0.5px;
-            transition: color 0.3s ease;
-        }
-
-        header.scrolled h1 {
-            color: white;
-        }
-
-        .back-link {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .back-link:hover {
-            color: var(--secondary);
-        }
-
-        header.scrolled .back-link {
-            color: white;
-        }
-
-        /* Main Content */
-        .main-content {
-            min-height: 100vh;
-            padding: 8rem 2rem 4rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .page-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .page-header h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            letter-spacing: -1px;
-        }
-
-        .page-header p {
-            font-size: 1.2rem;
-            color: var(--text-light);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Demo Booking Container */
-        .demo-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: start;
-        }
-
-        /* Calendar Section */
-        .calendar-section {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 120px;
-        }
-
-        .calendar-section h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-        }
-
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .calendar-nav {
-            background: none;
-            border: none;
-            color: var(--primary);
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .calendar-nav:hover {
-            background: var(--surface);
-            color: var(--secondary);
-        }
-
-        .calendar-month {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .calendar-day-header {
-            text-align: center;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-light);
-            padding: 0.5rem;
-        }
-
-        .calendar-day {
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .calendar-day:hover {
-            background: var(--surface);
-        }
-
-        .calendar-day.available {
-            color: var(--primary);
-            background: rgba(69, 240, 223, 0.1);
-        }
-
-        .calendar-day.available:hover {
-            background: var(--secondary);
-            color: var(--primary);
-        }
-
-        .calendar-day.selected {
-            background: var(--primary);
-            color: white;
-        }
-
-        .calendar-day.unavailable {
-            color: var(--text-light);
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* Time Slots */
-        .time-slots {
-            display: none;
-        }
-
-        .time-slots.active {
-            display: block;
-        }
-
-        .time-slots h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .time-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.75rem;
-        }
-
-        .time-slot {
-            padding: 0.75rem 1rem;
-            border: 2px solid rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .time-slot:hover {
-            border-color: var(--secondary);
-            background: rgba(69, 240, 223, 0.1);
-        }
-
-        .time-slot.selected {
-            background: var(--secondary);
-            border-color: var(--secondary);
-            color: var(--primary);
-        }
-
-        .time-slot.unavailable {
-            opacity: 0.5;
-            cursor: not-allowed;
-            background: var(--surface);
-        }
-
-        /* Form Section */
-        .form-section {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: var(--shadow);
-        }
-
-        .form-section h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--text);
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 1rem 1.25rem;
-            border: 2px solid rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background: var(--surface);
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--secondary);
-            box-shadow: 0 0 0 3px rgba(69, 240, 223, 0.1);
-        }
-
-        .form-group.required label::after {
-            content: ' *';
-            color: #E53E3E;
-        }
-
-        /* Selected Details */
-        .selected-details {
-            background: rgba(69, 240, 223, 0.1);
-            border: 1px solid rgba(69, 240, 223, 0.3);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            display: none;
-        }
-
-        .selected-details.active {
-            display: block;
-        }
-
-        .selected-details h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .selected-details p {
-            color: var(--text);
-            margin-bottom: 0.5rem;
-        }
-
-        .selected-details strong {
-            color: var(--primary);
-        }
-
-        /* Submit Button */
-        .submit-btn {
-            width: 100%;
-            background: var(--gradient);
-            color: white;
-            padding: 1.2rem 2rem;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(17, 29, 74, 0.3);
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* Success Message */
-        .success-message {
-            display: none;
-            text-align: center;
-            background: rgba(72, 187, 120, 0.1);
-            border: 1px solid rgba(72, 187, 120, 0.3);
-            border-radius: 16px;
-            padding: 3rem 2rem;
-            color: var(--success);
-        }
-
-        .success-message.active {
-            display: block;
-        }
-
-        .success-message h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--success);
-        }
-
-        .success-message p {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            color: var(--text);
-        }
-
-        .success-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--success);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-        }
-
-        .success-icon svg {
-            width: 30px;
-            height: 30px;
-            fill: white;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--primary);
-            color: white;
-            text-align: center;
-            padding: 3rem 2rem;
-            margin-top: 4rem;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .demo-container {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .calendar-section {
-                position: static;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .time-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .main-content {
-                padding: 6rem 1rem 2rem;
-            }
-        }
-
-        /* Loading State */
-        .loading {
-            display: none;
-            justify-content: center;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .loading.active {
-            display: flex;
-        }
-
-        .spinner {
-            width: 20px;
-            height: 20px;
-            border: 2px solid transparent;
-            border-top: 2px solid white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .validation-error {
-            color: #E53E3E;
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-            display: none;
-        }
-
-        .validation-error.active {
-            display: block;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Demo - ScheduleMaster Pro | Volhard Consulting</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #111D4A;
+      --secondary: #45F0DF;
+      --accent: #C2CAE8;
+      --text: #2D3748;
+      --text-light: #718096;
+      --white: #FFFFFF;
+      --surface: #F7FAFC;
+      --gradient: linear-gradient(135deg, #111D4A 0%, #2A3F7A 100%);
+      --shadow: 0 4px 25px rgba(17, 29, 74, 0.08);
+      --shadow-hover: 0 8px 40px rgba(17, 29, 74, 0.15);
+      --success: #48BB78;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--surface);
+      color: var(--text);
+      line-height: 1.7;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      background: rgba(17, 29, 74, 0.95);
+      color: white;
+    }
+
+    header h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+      transition: color 0.3s ease;
+    }
+
+    header.scrolled h1 {
+      color: white;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--secondary);
+    }
+
+    header.scrolled nav a {
+      color: white;
+    }
+
+    /* Main */
+    .main-content {
+      min-height: 100vh;
+      padding: 8rem 2rem 4rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .page-header h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      letter-spacing: -1px;
+    }
+
+    .page-header p {
+      font-size: 1.2rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Form */
+    .form-section {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .form-section h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      border: 2px solid rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      font-size: 1rem;
+      background: var(--surface);
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 3px rgba(69, 240, 223, 0.1);
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--gradient);
+      color: white;
+      padding: 1.2rem 2rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(17, 29, 74, 0.3);
+    }
+
+    /* Success Message */
+    .success-message {
+      display: none;
+      text-align: center;
+      background: rgba(72, 187, 120, 0.1);
+      border: 1px solid rgba(72, 187, 120, 0.3);
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      color: var(--success);
+      margin-top: 2rem;
+    }
+
+    .success-message.active {
+      display: block;
+    }
+
+    footer {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 3rem 2rem;
+      margin-top: 4rem;
+    }
+
+    @media (max-width: 768px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header id="header">
-        <h1>Volhard</h1>
-        <a href="ScheduleMaster-ProProductPage.HTML" class="back-link">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M11.67 3.87L9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z"/>
-            </svg>
-            Back to Product
-        </a>
-    </header>
+  <header id="header">
+    <h1>Volhard</h1>
+    <nav>
+      <a href="index.html#services">Services</a>
+      <a href="ScheduleMaster-ProProductPage.html">ScheduleMaster</a>
+      <a href="index.html#client-reviews">Reviews</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </header>
 
-    <div class="main-content">
-        <div class="page-header">
-            <h1>Book Your Demo</h1>
-            <p>Schedule a personalized 30-minute demo of ScheduleMaster Pro and see how it can transform your resource management.</p>
-        </div>
-
-        <div class="demo-container" id="bookingContainer">
-            <!-- Calendar Section -->
-            <div class="calendar-section">
-                <h2>Select Date & Time</h2>
-                
-                <div class="calendar-header">
-                    <button class="calendar-nav" id="prevMonth">‹</button>
-                    <div class="calendar-month" id="currentMonth"></div>
-                    <button class="calendar-nav" id="nextMonth">›</button>
-                </div>
-
-                <div class="calendar-grid" id="calendarGrid">
-                    <div class="calendar-day-header">Sun</div>
-                    <div class="calendar-day-header">Mon</div>
-                    <div class="calendar-day-header">Tue</div>
-                    <div class="calendar-day-header">Wed</div>
-                    <div class="calendar-day-header">Thu</div>
-                    <div class="calendar-day-header">Fri</div>
-                    <div class="calendar-day-header">Sat</div>
-                </div>
-
-                <div class="time-slots" id="timeSlots">
-                    <h3>Available Times</h3>
-                    <div class="time-grid" id="timeGrid"></div>
-                </div>
-            </div>
-
-            <!-- Form Section -->
-            <div class="form-section">
-                <h2>Your Details</h2>
-                
-                <div class="selected-details" id="selectedDetails">
-                    <h3>Selected Demo Slot:</h3>
-                    <p><strong>Date:</strong> <span id="selectedDate"></span></p>
-                    <p><strong>Time:</strong> <span id="selectedTime"></span></p>
-                    <p><strong>Duration:</strong> 30 minutes</p>
-                </div>
-
-                <form id="demoForm" name="demo-booking" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
-                    <p style="display: none;">
-                        <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-                    </p>
-                    
-                    <!-- Hidden fields for selected date/time -->
-                    <input type="hidden" name="selected_date" id="hiddenDate">
-                    <input type="hidden" name="selected_time" id="hiddenTime">
-                    
-                    <div class="form-row">
-                        <div class="form-group required">
-                            <label for="firstName">First Name</label>
-                            <input type="text" id="firstName" name="first_name" required>
-                            <div class="validation-error" id="firstNameError">First name is required</div>
-                        </div>
-                        
-                        <div class="form-group required">
-                            <label for="lastName">Last Name</label>
-                            <input type="text" id="lastName" name="last_name" required>
-                            <div class="validation-error" id="lastNameError">Last name is required</div>
-                        </div>
-                    </div>
-
-                    <div class="form-group required">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
-                        <div class="validation-error" id="emailError">Please enter a valid email address</div>
-                    </div>
-
-                    <div class="form-group required">
-                        <label for="company">Company Name</label>
-                        <input type="text" id="company" name="company" required>
-                        <div class="validation-error" id="companyError">Company name is required</div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="jobTitle">Job Title</label>
-                            <input type="text" id="jobTitle" name="job_title" placeholder="e.g., Operations Manager">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="companySize">Company Size</label>
-                            <select id="companySize" name="company_size">
-                                <option value="">Select company size</option>
-                                <option value="1-10">1-10 employees</option>
-                                <option value="11-50">11-50 employees</option>
-                                <option value="51-200">51-200 employees</option>
-                                <option value="201-1000">201-1000 employees</option>
-                                <option value="1000+">1000+ employees</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="industry">Industry</label>
-                            <select id="industry" name="industry">
-                                <option value="">Select industry</option>
-                                <option value="consulting">Consulting</option>
-                                <option value="legal">Legal Services</option>
-                                <option value="accounting">Accounting</option>
-                                <option value="marketing">Marketing/Advertising</option>
-                                <option value="real-estate">Real Estate</option>
-                                <option value="healthcare">Healthcare</option>
-                                <option value="education">Education</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group required">
-                        <label for="resources">What resources do you need to schedule?</label>
-                        <textarea id="resources" name="resources" rows="3" 
-                                  placeholder="e.g., Meeting rooms, company vehicles, projectors, specialized equipment..." required></textarea>
-                        <div class="validation-error" id="resourcesError">Please describe the resources you need to schedule</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="challenges">Current scheduling challenges (optional)</label>
-                        <textarea id="challenges" name="challenges" rows="3" 
-                                  placeholder="Tell us about any specific scheduling problems you're facing..."></textarea>
-                    </div>
-
-                    <button type="submit" class="submit-btn" id="submitBtn" disabled>
-                        <span class="btn-text">Schedule Demo</span>
-                        <div class="loading">
-                            <div class="spinner"></div>
-                            <span>Booking...</span>
-                        </div>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="btn-icon">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Success Message -->
-        <div class="success-message" id="successMessage">
-            <div class="success-icon">
-                <svg viewBox="0 0 24 24">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                </svg>
-            </div>
-            <h2>Demo Booked Successfully!</h2>
-            <p>We've sent you a confirmation email with the meeting details.</p>
-            <p>You'll receive a calendar invite shortly with the Zoom meeting link.</p>
-            <p><strong>Next Steps:</strong> We'll send you a brief questionnaire to make your demo as relevant as possible.</p>
-        </div>
+  <div class="main-content">
+    <div class="page-header">
+      <h1>Book Your Demo</h1>
+      <p>Schedule a personalized demo of ScheduleMaster Pro and see how it can transform your resource management.</p>
     </div>
 
-    <footer>
-        <p>© 2025 Volhard Consulting. All rights reserved. | Empowering Digital Transformation</p>
-    </footer>
+    <div class="form-section">
+      <h2>Your Details</h2>
+      <form name="demo-booking" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="demo-booking">
+        <p style="display:none;">
+          <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+        </p>
 
-    <script>
-        // Calendar functionality
-        let currentDate = new Date();
-        let selectedDate = null;
-        let selectedTime = null;
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name *</label>
+            <input type="text" id="firstName" name="first_name" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name *</label>
+            <input type="text" id="lastName" name="last_name" required>
+          </div>
+        </div>
 
-        const months = [
-            'January', 'February', 'March', 'April', 'May', 'June',
-            'July', 'August', 'September', 'October', 'November', 'December'
-        ];
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required>
+        </div>
 
-        // Available time slots (24-hour format)
-        const availableTimeSlots = [
-            '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
-            '14:00', '14:30', '15:00', '15:30', '16:00', '16:30'
-        ];
+        <div class="form-group">
+          <label for="company">Company *</label>
+          <input type="text" id="company" name="company" required>
+        </div>
 
-        // Convert 24-hour to 12-hour format
-        function formatTime(time) {
-            const [hours, minutes] = time.split(':');
-            const hour = parseInt(hours);
-            const ampm = hour >= 12 ? 'PM' : 'AM';
-            const displayHour = hour % 12 || 12;
-            return `${displayHour}:${minutes} ${ampm}`;
-        }
+        <div class="form-group">
+          <label for="jobTitle">Job Title</label>
+          <input type="text" id="jobTitle" name="job_title">
+        </div>
 
-        // Initialize calendar
-        function initCalendar() {
-            updateCalendarDisplay();
-        }
+        <div class="form-group">
+          <label for="challenges">Current scheduling challenges (optional)</label>
+          <textarea id="challenges" name="challenges" rows="3"></textarea>
+        </div>
 
-        // Update calendar display
-        function updateCalendarDisplay() {
-            const monthElement = document.getElementById('currentMonth');
-            const calendarGrid = document.getElementById('calendarGrid');
-            
-            monthElement.textContent = `${months[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
-            
-            // Clear existing calendar days (keep headers)
-            const existingDays = calendarGrid.querySelectorAll('.calendar-day');
-            existingDays.forEach(day => day.remove());
-            
-            // Get first day of month and number of days
-            const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-            const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-            const startDate = firstDay.getDay();
-            const daysInMonth = lastDay.getDate();
-            
-            // Add empty cells for days before month starts
-            for (let i = 0; i < startDate; i++) {
-                const emptyDay = document.createElement('div');
-                emptyDay.classList.add('calendar-day');
-                calendarGrid.appendChild(emptyDay);
-            }
-            
-            // Add days of the month
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dayElement = document.createElement('div');
-                dayElement.classList.add('calendar-day');
-                dayElement.textContent = day;
-                
-                const dayDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-                const today = new Date();
-                
-                // Only allow booking for future dates (excluding weekends for demo purposes)
-                if (dayDate > today && dayDate.getDay() !== 0 && dayDate.getDay() !== 6) {
-                    dayElement.classList.add('available');
-                    dayElement.addEventListener('click', () => selectDate(dayDate, dayElement));
-                } else {
-                    dayElement.classList.add('unavailable');
-                }
-                
-                calendarGrid.appendChild(dayElement);
-            }
-        }
+        <button type="submit" class="submit-btn">Book Demo</button>
+      </form>
 
-        // Select date
-        function selectDate(date, element) {
-            // Remove previous selection
-            document.querySelectorAll('.calendar-day.selected').forEach(day => {
-                day.classList.remove('selected');
-            });
-            
-            // Add selection to clicked date
-            element.classList.add('selected');
-            selectedDate = date;
-            
-            // Show time slots
-            showTimeSlots();
-            updateSelectedDetails();
-        }
+      <div class="success-message" id="successMessage">
+        <h2>Thank you!</h2>
+        <p>Your demo request has been submitted. We’ll get back to you within 24 hours.</p>
+      </div>
+    </div>
+  </div>
 
-        // Show time slots for selected date
-        function showTimeSlots() {
-            const timeSlots = document.getElementById('timeSlots');
-            const timeGrid = document.getElementById('timeGrid');
-            
-            timeSlots.classList.add('active');
-            timeGrid.innerHTML = '';
-            
-            availableTimeSlots.forEach(time => {
-                const timeSlot = document.createElement('div');
-                timeSlot.classList.add('time-slot');
-                timeSlot.textContent = formatTime(time);
-                timeSlot.dataset.time = time;
-                
-                timeSlot.addEventListener('click', () => selectTime(time, timeSlot));
-                timeGrid.appendChild(timeSlot);
-            });
-        }
+  <footer>
+    <p>© 2025 Volhard Consulting. All rights reserved. | Empowering Digital Transformation</p>
+  </footer>
 
-        // Select time
-        function selectTime(time, element) {
-            // Remove previous time selection
-            document.querySelectorAll('.time-slot.selected').forEach(slot => {
-                slot.classList.remove('selected');
-            });
-            
-            // Add selection to clicked time
-            element.classList.add('selected');
-            selectedTime = time;
-            
-            updateSelectedDetails();
-            enableSubmitButton();
-        }
-
-        // Update selected details display
-        function updateSelectedDetails() {
-            const detailsElement = document.getElementById('selectedDetails');
-            const dateElement = document.getElementById('selectedDate');
-            const timeElement = document.getElementById('selectedTime');
-            
-            if (selectedDate) {
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                dateElement.textContent = selectedDate.toLocaleDateString('en-US', options);
-                
-                // Update hidden form field
-                document.getElementById('hiddenDate').value = selectedDate.toISOString().split('T')[0];
-            }
-            
-            if (selectedTime) {
-                timeElement.textContent = formatTime(selectedTime);
-                
-                // Update hidden form field
-                document.getElementById('hiddenTime').value = selectedTime;
-            }
-            
-            if (selectedDate || selectedTime) {
-                detailsElement.classList.add('active');
-            }
-        }
-
-        // Enable submit button when date and time are selected
-        function enableSubmitButton() {
-            const submitBtn = document.getElementById('submitBtn');
-            if (selectedDate && selectedTime) {
-                submitBtn.disabled = false;
-            }
-        }
-
-        // Calendar navigation
-        document.getElementById('prevMonth').addEventListener('click', () => {
-            currentDate.setMonth(currentDate.getMonth() - 1);
-            updateCalendarDisplay();
-            resetSelection();
-        });
-
-        document.getElementById('nextMonth').addEventListener('click', () => {
-            currentDate.setMonth(currentDate.getMonth() + 1);
-            updateCalendarDisplay();
-            resetSelection();
-        });
-
-        // Reset selection when changing months
-        function resetSelection() {
-            selectedDate = null;
-            selectedTime = null;
-            document.getElementById('timeSlots').classList.remove('active');
-            document.getElementById('selectedDetails').classList.remove('active');
-            document.getElementById('submitBtn').disabled = true;
-        }
-
-        // Form validation
-        function validateForm() {
-            let isValid = true;
-            
-            const requiredFields = [
-                { id: 'firstName', errorId: 'firstNameError' },
-                { id: 'lastName', errorId: 'lastNameError' },
-                { id: 'email', errorId: 'emailError' },
-                { id: 'company', errorId: 'companyError' },
-                { id: 'resources', errorId: 'resourcesError' }
-            ];
-            
-            requiredFields.forEach(field => {
-                const input = document.getElementById(field.id);
-                const error = document.getElementById(field.errorId);
-                
-                if (!input.value.trim()) {
-                    error.classList.add('active');
-                    input.style.borderColor = '#E53E3E';
-                    isValid = false;
-                } else {
-                    error.classList.remove('active');
-                    input.style.borderColor = '';
-                }
-            });
-            
-            // Email validation
-            const emailInput = document.getElementById('email');
-            const emailError = document.getElementById('emailError');
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            
-            if (!emailRegex.test(emailInput.value.trim())) {
-                emailError.classList.add('active');
-                emailInput.style.borderColor = '#E53E3E';
-                isValid = false;
-            }
-            
-            return isValid;
-        }
-
-        // Form submission
-        document.getElementById('demoForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            if (!validateForm()) {
-                return;
-            }
-            
-            if (!selectedDate || !selectedTime) {
-                alert('Please select a date and time for your demo.');
-                return;
-            }
-            
-            const form = e.target;
-            const formData = new FormData(form);
-            
-            // Show loading state
-            const submitBtn = document.getElementById('submitBtn');
-            const btnText = submitBtn.querySelector('.btn-text');
-            const btnIcon = submitBtn.querySelector('.btn-icon');
-            const loading = submitBtn.querySelector('.loading');
-            
-            submitBtn.disabled = true;
-            btnText.style.display = 'none';
-            btnIcon.style.display = 'none';
-            loading.classList.add('active');
-            
-            try {
-                const response = await fetch('/', {
-                    method: 'POST',
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: new URLSearchParams(formData).toString()
-                });
-                
-                if (response.ok) {
-                    // Hide booking container and show success message
-                    document.getElementById('bookingContainer').style.display = 'none';
-                    document.getElementById('successMessage').classList.add('active');
-                    
-                    // Scroll to success message
-                    document.getElementById('successMessage').scrollIntoView({ 
-                        behavior: 'smooth',
-                        block: 'center'
-                    });
-                } else {
-                    throw new Error('Network response was not ok');
-                }
-            } catch (error) {
-                alert('Sorry, there was an error booking your demo. Please try again or contact us directly.');
-                
-                // Reset button state
-                submitBtn.disabled = false;
-                btnText.style.display = 'inline';
-                btnIcon.style.display = 'inline';
-                loading.classList.remove('active');
-            }
-        });
-
-        // Clear validation errors on input
-        document.querySelectorAll('input, textarea, select').forEach(input => {
-            input.addEventListener('input', () => {
-                const errorElement = document.getElementById(input.id + 'Error');
-                if (errorElement) {
-                    errorElement.classList.remove('active');
-                    input.style.borderColor = '';
-                }
-            });
-        });
-
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if (window.scrollY > 100) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // Initialize calendar when page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            initCalendar();
-        });
+  <script>
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>
