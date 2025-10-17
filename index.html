@@ -406,10 +406,7 @@
         .hero-banner {
             position: relative;
             min-height: 60vh;
-            background: linear-gradient(rgba(17, 29, 74, 0.7), rgba(17, 29, 74, 0.8)), 
-                        url('./assets/volhard_banner.jpeg') center center;
-            background-size: cover;
-            background-attachment: fixed;
+            background: var(--gradient);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -417,12 +414,32 @@
             overflow: hidden;
         }
 
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
         .hero-banner-content {
             max-width: 1200px;
             padding: 4rem 2rem;
             text-align: center;
             position: relative;
-            z-index: 2;
+            z-index: 1;
+        }
+
+        .banner-overlay {
+            position: relative;
+            z-index: 1;
         }
 
         .banner-overlay h2 {
