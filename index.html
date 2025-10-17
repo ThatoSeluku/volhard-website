@@ -204,6 +204,38 @@
             background-clip: text;
         }
 
+        .hero-title-desktop {
+            display: none;
+        }
+
+        .hero-title-mobile-top {
+            display: block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .hero-title-mobile-bottom {
+            display: block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title-mobile-bottom span {
+            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-magenta) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
         .hero p {
             font-size: clamp(1rem, 2vw, 1.125rem);
             line-height: 1.6;
@@ -681,6 +713,18 @@
             .hero-visual-desktop {
                 display: block;
             }
+
+            .hero-title-desktop {
+                display: block;
+            }
+
+            .hero-title-mobile-top {
+                display: none;
+            }
+
+            .hero-title-mobile-bottom {
+                display: none;
+            }
         }
 
         @media (min-width: 1024px) {
@@ -789,7 +833,8 @@
                 <div class="hero-eyebrow">
                     Featured Product
                 </div>
-                <h2>Modern Ticket Management. <span>Powered by Volhard.</span></h2>
+                <h2 class="hero-title-desktop">Modern Ticket Management. <span>Powered by Volhard.</span></h2>
+                <h2 class="hero-title-mobile-top">Modern Ticket Management.</h2>
                 <p>Streamline issues, track progress, and deliver faster resolutions — all within Microsoft Power Platform.</p>
                 <div class="hero-visual-mobile">
                 <div class="app-preview">
@@ -820,6 +865,7 @@
                     </div>
                 </div>
                 </div>
+                <h2 class="hero-title-mobile-bottom"><span>Powered by Volhard.</span></h2>
                 <div class="cta-group">
                     <a href="https://itticketmanagement.powerappsportals.com/" class="btn btn-primary">
                         <span>View Demo</span>
