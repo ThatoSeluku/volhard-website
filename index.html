@@ -280,7 +280,15 @@
             transform: translateY(-2px);
         }
 
-        .hero-visual {
+        .hero-visual-mobile {
+            display: block;
+            position: relative;
+            perspective: 1200px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-visual-desktop {
+            display: none;
             position: relative;
             perspective: 1200px;
         }
@@ -648,6 +656,14 @@
             .hero-content {
                 padding-right: 2rem;
             }
+
+            .hero-visual-mobile {
+                display: none;
+            }
+
+            .hero-visual-desktop {
+                display: block;
+            }
         }
 
         @media (min-width: 1024px) {
@@ -685,10 +701,6 @@
         }
 
         @media (max-width: 768px) {
-            .hero-visual {
-                margin-top: 2rem;
-            }
-
             nav {
                 display: none;
             }
@@ -762,6 +774,35 @@
                 </div>
                 <h2>Modern Ticket Management. <span>Powered by Volhard.</span></h2>
                 <p>Streamline issues, track progress, and deliver faster resolutions — all within Microsoft Power Platform.</p>
+                <div class="hero-visual-mobile">
+                <div class="app-preview">
+                    <div class="app-preview-content">
+                        <div class="preview-header">
+                            <div class="preview-dot"></div>
+                            <div class="preview-dot"></div>
+                            <div class="preview-dot"></div>
+                        </div>
+                        <div class="preview-body">
+                            <div class="preview-card">
+                                <div class="preview-line"></div>
+                                <div class="preview-line"></div>
+                            </div>
+                            <div class="preview-card">
+                                <div class="preview-line"></div>
+                                <div class="preview-line"></div>
+                            </div>
+                            <div class="preview-card">
+                                <div class="preview-line"></div>
+                                <div class="preview-line"></div>
+                            </div>
+                            <div class="preview-card">
+                                <div class="preview-line"></div>
+                                <div class="preview-line"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
                 <div class="cta-group">
                     <a href="https://itticketmanagement.powerappsportals.com/" class="btn btn-primary">
                         <span>View Demo</span>
@@ -771,7 +812,7 @@
                     </a>
                 </div>
             </div>
-            <div class="hero-visual">
+            <div class="hero-visual-desktop">
                 <div class="app-preview">
                     <div class="app-preview-content">
                         <div class="preview-header">
