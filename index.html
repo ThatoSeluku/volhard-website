@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volhard Consulting</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./Assets/Favicon.png">
+    <link rel="shortcut icon" type="image/png" href="./Assets/Favicon.png">
+    <link rel="apple-touch-icon" href="./Assets/Favicon.png">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -119,6 +125,41 @@
 
         header.scrolled nav a {
             color: white;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+
+        .mobile-menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: var(--primary);
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled .mobile-menu-toggle span {
+            background: white;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
         }
 
         /* Hero section with modern design */
@@ -762,12 +803,51 @@
         }
 
         @media (max-width: 768px) {
+            header {
+                padding: 1rem 1.5rem;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
             nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 70%;
+                max-width: 300px;
+                background: rgba(17, 29, 74, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                gap: 0;
+                padding: 5rem 2rem 2rem;
+                transition: right 0.3s ease;
+                z-index: 1000;
+            }
+
+            nav.active {
+                right: 0;
+            }
+
+            nav a {
+                color: white;
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                font-size: 1.1rem;
+            }
+
+            nav a::after {
                 display: none;
             }
 
             .section {
-                padding: 4rem 1rem;
+                padding: 3rem 1.25rem;
             }
 
             .grid {
@@ -775,9 +855,58 @@
                 gap: 1.5rem;
             }
 
+            .hero {
+                padding: 5rem 1.25rem 2rem;
+                min-height: auto;
+            }
+
+            .hero-eyebrow {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.875rem;
+            }
+
+            .hero-container {
+                gap: 2rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+                line-height: 1.15;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .cta-group {
+                gap: 0.75rem;
+            }
+
+            .btn {
+                padding: 0.875rem 1.5rem;
+                font-size: 0.9rem;
+                width: 100%;
+                justify-content: center;
+            }
+
             .hero-banner {
                 background-attachment: scroll;
-                min-height: 50vh;
+                min-height: auto;
+                padding: 3rem 0;
+            }
+
+            .hero-banner-content {
+                padding: 2rem 1.25rem;
+            }
+
+            .banner-overlay h2 {
+                font-size: 2rem;
+            }
+
+            .banner-overlay p {
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
             }
 
             .stats-grid {
@@ -793,8 +922,42 @@
                 font-size: 2.5rem;
             }
 
-            #client-reviews .grid {
-                grid-template-columns: 1fr;
+            .section h3 {
+                font-size: 2rem;
+            }
+
+            .section-intro {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .card {
+                padding: 1.75rem;
+            }
+
+            .card h4 {
+                font-size: 1.2rem;
+            }
+
+            .tagline-section {
+                padding: 3rem 1.5rem;
+            }
+
+            .tagline-section h2 {
+                font-size: 2rem;
+            }
+
+            .tagline-section p {
+                font-size: 1rem;
+            }
+
+            .contact-form {
+                padding: 2rem 1.5rem;
+            }
+
+            .form-group input,
+            .form-group textarea {
+                font-size: 1rem;
             }
         }
 
@@ -814,95 +977,400 @@
         html {
             scroll-padding-top: 80px;
         }
+
+        /* Modern Testimonials Styles */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card-modern {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            box-shadow: var(--shadow);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .testimonial-card-modern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--primary) 100%);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .testimonial-card-modern:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .testimonial-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .testimonial-badge {
+            padding: 0.375rem 0.875rem;
+            border-radius: 100px;
+            font-size: 0.813rem;
+            font-weight: 600;
+            color: white;
+            display: inline-block;
+        }
+
+        .testimonial-badge.anglo {
+            background: linear-gradient(135deg, #111D4A 0%, #2A3F7A 100%);
+        }
+
+        .testimonial-badge.pharma {
+            background: linear-gradient(135deg, #45F0DF 0%, #3EE5E3 100%);
+            color: var(--primary);
+        }
+
+        .testimonial-badge.icr {
+            background: linear-gradient(135deg, #E23EDD 0%, #C13DD8 100%);
+        }
+
+        .testimonial-badge.growth {
+            background: linear-gradient(135deg, #45F0DF 0%, #111D4A 100%);
+        }
+
+        .testimonial-badge.international {
+            background: linear-gradient(135deg, #3EE5E3 0%, #E23EDD 100%);
+        }
+
+        .testimonial-rating {
+            font-size: 1.125rem;
+            color: #FFD700;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-quote {
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 0.938rem;
+            flex-grow: 1;
+            font-style: italic;
+        }
+
+        .testimonial-footer {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .testimonial-author {
+            flex: 1;
+        }
+
+        .author-name {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.938rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .author-role {
+            font-size: 0.813rem;
+            color: var(--text-light);
+        }
+
+        .testimonial-highlight {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(69, 240, 223, 0.1);
+            border: 1px solid rgba(69, 240, 223, 0.3);
+            border-radius: 8px;
+            font-size: 0.813rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .testimonial-card-modern {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Carousel Styles */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            pointer-events: none;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+            pointer-events: all;
+            position: relative;
+        }
+
+        /* Carousel Controls */
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(17, 29, 74, 0.1);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+
+        .carousel-control:hover {
+            background: rgba(255, 255, 255, 1);
+            border-color: var(--secondary);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 4px 20px rgba(17, 29, 74, 0.15);
+        }
+
+        .carousel-control svg {
+            color: var(--primary);
+        }
+
+        .carousel-control.prev {
+            left: 2rem;
+        }
+
+        .carousel-control.next {
+            right: 2rem;
+        }
+
+        /* Carousel Indicators */
+        .carousel-indicators {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.75rem;
+            z-index: 10;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .indicator:hover {
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(1.2);
+        }
+
+        .indicator.active {
+            background: var(--secondary);
+            border-color: var(--secondary);
+            width: 32px;
+            border-radius: 6px;
+        }
+
+        /* Mobile carousel controls */
+        @media (max-width: 768px) {
+            .carousel-control {
+                width: 44px;
+                height: 44px;
+                background: rgba(255, 255, 255, 0.95);
+            }
+
+            .carousel-control.prev {
+                left: 0.75rem;
+            }
+
+            .carousel-control.next {
+                right: 0.75rem;
+            }
+
+            .carousel-indicators {
+                bottom: 1.5rem;
+                gap: 0.5rem;
+            }
+
+            .indicator {
+                width: 8px;
+                height: 8px;
+                border-width: 2px;
+            }
+
+            .indicator.active {
+                width: 24px;
+                height: 8px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .carousel-control {
+                width: 40px;
+                height: 40px;
+            }
+
+            .carousel-control.prev {
+                left: 0.5rem;
+            }
+
+            .carousel-control.next {
+                right: 0.5rem;
+            }
+
+            .carousel-control svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .carousel-indicators {
+                bottom: 1rem;
+            }
+
+            .indicator {
+                width: 7px;
+                height: 7px;
+            }
+
+            .indicator.active {
+                width: 20px;
+                height: 7px;
+            }
+        }
     </style>
 </head>
 <body>
     <header id="header">
         <h1>Volhard</h1>
-        <nav>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav id="mainNav">
             <a href="#services">Services</a>
-            <a href="https://itticketmanagement.powerappsportals.com/">Volhard's Ticket Management</a>
+            <a href="https://thatoseluku.github.io/onedesk-site/">OneDesk</a>
             <a href="#client-reviews">Reviews</a>
             <a href="#contact">Contact</a>
         </nav>
     </header>
 
+    <!-- Carousel Hero Section -->
     <section class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <div class="hero-eyebrow">
-                    Featured Product
-                </div>
-                <h2 class="hero-title-desktop">Modern Ticket Management. <span>Powered by Volhard.</span></h2>
-                <h2 class="hero-title-mobile-top">Modern Ticket Management.</h2>
-                <p>Streamline issues, track progress, and deliver faster resolutions — all within Microsoft Power Platform.</p>
-                <div class="hero-visual-mobile">
-                <div class="app-preview">
-                    <div class="app-preview-content">
-                        <div class="preview-header">
-                            <div class="preview-dot"></div>
-                            <div class="preview-dot"></div>
-                            <div class="preview-dot"></div>
+        <div class="carousel-container">
+            <!-- Slide 1: OneDesk -->
+            <div class="carousel-slide active">
+                <div class="hero-container">
+                    <div class="hero-content">
+                        <div class="hero-eyebrow">
+                            IT Ticket Management Solution
                         </div>
-                        <div class="preview-body">
-                            <div class="preview-card">
-                                <div class="preview-line"></div>
-                                <div class="preview-line"></div>
-                            </div>
-                            <div class="preview-card">
-                                <div class="preview-line"></div>
-                                <div class="preview-line"></div>
-                            </div>
-                            <div class="preview-card">
-                                <div class="preview-line"></div>
-                                <div class="preview-line"></div>
-                            </div>
-                            <div class="preview-card">
-                                <div class="preview-line"></div>
-                                <div class="preview-line"></div>
-                            </div>
+                        <h2 class="hero-title-desktop">Modern Ticket Management. Powered by <span>OneDesk.</span></h2>
+                        <h2 class="hero-title-mobile-top">Modern Ticket Management.</h2>
+                        <p>Streamline issues, track progress, and deliver faster resolutions — all within Microsoft Power Platform.</p>
+                        <div class="hero-visual-mobile">
+                            <img src="./Assets/OneDesk/onedesk-logo.png" alt="OneDesk Logo" style="width: 100%; max-width: 500px; height: auto; border-radius: 20px;">
+                        </div>
+                        <h2 class="hero-title-mobile-bottom">Powered by <span>OneDesk.</span></h2>
+                        <div class="cta-group">
+                            <a href="https://thatoseluku.github.io/onedesk-site/" class="btn btn-primary">
+                                <span>Explore OneDesk</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="position: relative; z-index: 1;">
+                                    <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
                         </div>
                     </div>
-                </div>
-                </div>
-                <h2 class="hero-title-mobile-bottom"><span>Powered by Volhard.</span></h2>
-                <div class="cta-group">
-                    <a href="https://itticketmanagement.powerappsportals.com/" class="btn btn-primary">
-                        <span>View Demo</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="position: relative; z-index: 1;">
-                            <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
+                    <div class="hero-visual-desktop">
+                        <img src="./Assets/OneDesk/onedesk-logo.png" alt="OneDesk Logo" style="width: 100%; height: auto; border-radius: 20px;">
+                    </div>
                 </div>
             </div>
-            <div class="hero-visual-desktop">
-                <div class="app-preview">
-                    <div class="app-preview-content">
-                        <div class="preview-header">
-                            <div class="preview-dot"></div>
-                            <div class="preview-dot"></div>
-                            <div class="preview-dot"></div>
+
+            <!-- Slide 2: PulseHire -->
+            <div class="carousel-slide">
+                <div class="hero-container">
+                    <div class="hero-content">
+                        <div class="hero-eyebrow">
+                            Smart Hiring Solution
                         </div>
-                        <div class="preview-body">
-                            <div class="preview-card">
-                                <div class="preview-line"></div>
-                                <div class="preview-line"></div>
-                            </div>
-                            <div class="preview-card">
-                                <div class="preview-line"></div>
-                                <div class="preview-line"></div>
-                            </div>
-                            <div class="preview-card">
-                                <div class="preview-line"></div>
-                                <div class="preview-line"></div>
-                            </div>
-                            <div class="preview-card">
-                                <div class="preview-line"></div>
-                                <div class="preview-line"></div>
-                            </div>
+                        <h2 class="hero-title-desktop">Smarter hiring. Powered by <span>PulseHire.</span></h2>
+                        <h2 class="hero-title-mobile-top">Smarter hiring.</h2>
+                        <p>Data-driven candidate scoring built on Microsoft Power Platform. Reduce bias and identify top talent efficiently.</p>
+                        <div class="hero-visual-mobile">
+                            <img src="./Assets/PulseHire/1.png" alt="PulseHire Platform" style="width: 100%; max-width: 500px; height: auto; border-radius: 20px;">
+                        </div>
+                        <h2 class="hero-title-mobile-bottom">Powered by <span>PulseHire.</span></h2>
+                        <div class="cta-group">
+                            <a href="#" class="btn btn-primary">
+                                <span>Learn About PulseHire</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="position: relative; z-index: 1;">
+                                    <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
                         </div>
                     </div>
+                    <div class="hero-visual-desktop">
+                        <img src="./Assets/PulseHire/1.png" alt="PulseHire Platform" style="width: 100%; height: auto; border-radius: 20px;">
+                    </div>
                 </div>
+            </div>
+
+            <!-- Carousel Controls -->
+            <button class="carousel-control prev" aria-label="Previous slide">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <button class="carousel-control next" aria-label="Next slide">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+
+            <!-- Carousel Indicators -->
+            <div class="carousel-indicators">
+                <button class="indicator active" data-slide="0" aria-label="Go to slide 1"></button>
+                <button class="indicator" data-slide="1" aria-label="Go to slide 2"></button>
             </div>
         </div>
     </section>
@@ -998,14 +1466,97 @@
         </div>
     </section>
 
-    <section id="client-reviews" class="section fade-in">
-        <h3>Client Reviews</h3>
-        <div class="grid" style="grid-template-columns: repeat(2, 1fr); gap: 2rem; justify-items: center;">
-            <img src="./assets/Reviews/Growing_And_Developing_Review.png" alt="Growing and Developing Review" style="width: 100%; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
-            <img src="./assets/Reviews/Pharmadynamics_Review.png" alt="Pharmadynamics Review" style="width: 100%; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
-            <img src="./assets/Reviews/ProjectICR_Review.png" alt="Project ICR Review" style="width: 100%; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
-            <img src="./assets/Reviews/Anglo_Project_Signoff.png" alt="Anglo Project Signoff" style="width: 100%; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
-            <img src="./assets/Reviews/USA_Review.png" alt="USA Review" style="width: 100%; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+    <section id="client-reviews" class="section fade-in" style="background: var(--surface);">
+        <h3>What Clients Say</h3>
+        <p class="section-intro">Trusted by industry leaders and teams worldwide</p>
+
+        <div class="testimonials-grid">
+            <!-- Testimonial 1: Anglo -->
+            <div class="testimonial-card-modern">
+                <div class="testimonial-header">
+                    <div class="testimonial-badge anglo">Anglo Project</div>
+                    <div class="testimonial-rating">
+                        <span>★★★★★</span>
+                    </div>
+                </div>
+                <p class="testimonial-quote">"It was an absolute pleasure working with the team and I'm blown away by the quality and scope of work delivered over a short period of time. It really has surpassed all expectations."</p>
+                <div class="testimonial-footer">
+                    <div class="testimonial-author">
+                        <div class="author-name">Joline</div>
+                        <div class="author-role">Anglo American - Design System Project</div>
+                    </div>
+                </div>
+                <div class="testimonial-highlight">CSS Score: "Far exceeds expectations"</div>
+            </div>
+
+            <!-- Testimonial 2: PharmaDynamics -->
+            <div class="testimonial-card-modern">
+                <div class="testimonial-header">
+                    <div class="testimonial-badge pharma">PharmaDynamics</div>
+                    <div class="testimonial-rating">
+                        <span>★★★★★</span>
+                    </div>
+                </div>
+                <p class="testimonial-quote">"Thank you for your continuous commitment to ensuring that the client's requirements are met and supported in all aspects of the solution. Your hard work and efforts in delivering Project Alaska has paid off."</p>
+                <div class="testimonial-footer">
+                    <div class="testimonial-author">
+                        <div class="author-name">Julian Maharaj</div>
+                        <div class="author-role">Project Alaska - PharmaDynamics</div>
+                    </div>
+                </div>
+                <div class="testimonial-highlight">✓ Client Sign-off Received</div>
+            </div>
+
+            <!-- Testimonial 3: ICR Project -->
+            <div class="testimonial-card-modern">
+                <div class="testimonial-header">
+                    <div class="testimonial-badge icr">Team Leadership</div>
+                    <div class="testimonial-rating">
+                        <span>★★★★★</span>
+                    </div>
+                </div>
+                <p class="testimonial-quote">"Thank you for being an exceptional team lead and providing continued support and guidance during Project ICR. It has been a wonderful experience to collaborate and learn from you."</p>
+                <div class="testimonial-footer">
+                    <div class="testimonial-author">
+                        <div class="author-name">Natazia Jansen Van Vuren</div>
+                        <div class="author-role">Project ICR - Thuma Mina Recognition</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 4: Growth -->
+            <div class="testimonial-card-modern">
+                <div class="testimonial-header">
+                    <div class="testimonial-badge growth">Excellence Recognition</div>
+                    <div class="testimonial-rating">
+                        <span>★★★★★</span>
+                    </div>
+                </div>
+                <p class="testimonial-quote">"Thank you for consistently learning new skills and saying yes to any challenge in front of you. Your growth in your skillset and commitment to getting the task done is outstanding."</p>
+                <div class="testimonial-footer">
+                    <div class="testimonial-author">
+                        <div class="author-name">Julian Maharaj</div>
+                        <div class="author-role">Professional Development Recognition</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 5: International -->
+            <div class="testimonial-card-modern">
+                <div class="testimonial-header">
+                    <div class="testimonial-badge international">International Client</div>
+                    <div class="testimonial-rating">
+                        <span>★★★★★</span>
+                    </div>
+                </div>
+                <p class="testimonial-quote">"It was great working with him! I will be using him again soon!"</p>
+                <div class="testimonial-footer">
+                    <div class="testimonial-author">
+                        <div class="author-name">Nick F.</div>
+                        <div class="author-role">United States - Upwork Client</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     
@@ -1051,6 +1602,149 @@
     </footer>
 
     <script>
+        // Carousel functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const indicators = document.querySelectorAll('.indicator');
+        const totalSlides = slides.length;
+        let autoRotateInterval = null;
+        let isAutoRotating = false;
+
+        function showSlide(index) {
+            // Normalize index to be within bounds
+            if (index < 0) index = totalSlides - 1;
+            if (index >= totalSlides) index = 0;
+
+            // Remove active class from all slides and indicators
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+
+            // Add active class to current slide and indicator
+            slides[index].classList.add('active');
+            indicators[index].classList.add('active');
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            const next = (currentSlide + 1) % totalSlides;
+            showSlide(next);
+        }
+
+        function prevSlide() {
+            const prev = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(prev);
+        }
+
+        function startAutoRotate() {
+            // Only start if not already rotating
+            if (isAutoRotating) return;
+
+            isAutoRotating = true;
+            autoRotateInterval = setInterval(() => {
+                nextSlide();
+            }, 5000); // Change slide every 5 seconds
+        }
+
+        function stopAutoRotate() {
+            if (autoRotateInterval) {
+                clearInterval(autoRotateInterval);
+                autoRotateInterval = null;
+            }
+            isAutoRotating = false;
+        }
+
+        function resetAutoRotate() {
+            stopAutoRotate();
+            startAutoRotate();
+        }
+
+        // Event listeners for controls
+        document.querySelector('.carousel-control.prev').addEventListener('click', () => {
+            prevSlide();
+            resetAutoRotate();
+        });
+
+        document.querySelector('.carousel-control.next').addEventListener('click', () => {
+            nextSlide();
+            resetAutoRotate();
+        });
+
+        // Event listeners for indicators
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                showSlide(index);
+                resetAutoRotate();
+            });
+        });
+
+        // Pause auto-rotation on hover
+        const carouselContainer = document.querySelector('.carousel-container');
+        carouselContainer.addEventListener('mouseenter', () => {
+            stopAutoRotate();
+        });
+
+        carouselContainer.addEventListener('mouseleave', () => {
+            startAutoRotate();
+        });
+
+        // Touch support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        carouselContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            stopAutoRotate();
+        });
+
+        carouselContainer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+            // Delay restart to prevent immediate rotation
+            setTimeout(() => {
+                startAutoRotate();
+            }, 500);
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            if (touchStartX - touchEndX > swipeThreshold) {
+                nextSlide();
+            } else if (touchEndX - touchStartX > swipeThreshold) {
+                prevSlide();
+            }
+        }
+
+        // Start auto-rotation on page load with a small delay
+        setTimeout(() => {
+            startAutoRotate();
+        }, 1000);
+
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mainNav = document.getElementById('mainNav');
+        const navLinks = mainNav.querySelectorAll('a');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenuToggle.classList.toggle('active');
+            mainNav.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuToggle.classList.remove('active');
+                mainNav.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mainNav.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                mobileMenuToggle.classList.remove('active');
+                mainNav.classList.remove('active');
+            }
+        });
+
         // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
@@ -1114,5 +1808,25 @@
             }
         });
     </script>
+
+    <!-- LinkedIn Insight Tag -->
+    <script type="text/javascript">
+    _linkedin_partner_id = "8801673";
+    window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+    window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+    </script><script type="text/javascript">
+    (function(l) {
+    if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+    window.lintrk.q=[]}
+    var s = document.getElementsByTagName("script")[0];
+    var b = document.createElement("script");
+    b.type = "text/javascript";b.async = true;
+    b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+    s.parentNode.insertBefore(b, s);})(window.lintrk);
+    </script>
+    <noscript>
+    <img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=8801673&fmt=gif" />
+    </noscript>
+    <!-- End LinkedIn Insight Tag -->
 </body>
 </html>
