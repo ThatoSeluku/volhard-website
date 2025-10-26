@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products | Volhard Consulting</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./Assets/Favicon.png">
+    <link rel="shortcut icon" type="image/png" href="./Assets/Favicon.png">
+    <link rel="apple-touch-icon" href="./Assets/Favicon.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #111D4A;
+            --secondary: #45F0DF;
+            --accent: #C2CAE8;
+            --accent-cyan: #3EE5E3;
+            --accent-magenta: #E23EDD;
+            --neutral-light: #ECEFF4;
+            --text: #2D3748;
+            --text-light: #718096;
+            --text-secondary: #6B7280;
+            --white: #FFFFFF;
+            --surface: #F7FAFC;
+            --gradient: linear-gradient(135deg, #111D4A 0%, #2A3F7A 100%);
+            --shadow: 0 4px 25px rgba(17, 29, 74, 0.08);
+            --shadow-hover: 0 8px 40px rgba(17, 29, 74, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #FAFBFC 0%, var(--neutral-light) 100%);
+            color: var(--text);
+            line-height: 1.7;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(62, 229, 227, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(62, 229, 227, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Header with glassmorphism */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(17, 29, 74, 0.95);
+            color: white;
+        }
+
+        header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            transition: color 0.3s ease;
+            text-decoration: none;
+        }
+
+        header h1 a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        header.scrolled h1,
+        header.scrolled h1 a {
+            color: white;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        header.scrolled nav a {
+            color: white;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+
+        .mobile-menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: var(--primary);
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled .mobile-menu-toggle span {
+            background: white;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            background: var(--gradient);
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page-header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Products Section */
+        .products-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--primary) 100%);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .product-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .product-content.reverse {
+            direction: rtl;
+        }
+
+        .product-content.reverse > * {
+            direction: ltr;
+        }
+
+        .product-info h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .product-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(69, 240, 223, 0.15);
+            border: 1px solid rgba(69, 240, 223, 0.3);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .product-description {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .product-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1rem;
+            color: var(--text);
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        .product-features li::before {
+            content: '✓';
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: var(--secondary);
+            color: var(--primary);
+            border-radius: 50%;
+            font-weight: 800;
+            flex-shrink: 0;
+            font-size: 0.875rem;
+        }
+
+        .product-image {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(17, 29, 74, 0.12);
+        }
+
+        .product-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 16px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+            box-shadow: 0 4px 14px rgba(17, 29, 74, 0.25);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-magenta) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(17, 29, 74, 0.35);
+        }
+
+        .btn-secondary {
+            background: rgba(69, 240, 223, 0.1);
+            color: var(--primary);
+            border: 2px solid var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(69, 240, 223, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 1.5rem;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 70%;
+                max-width: 300px;
+                background: rgba(17, 29, 74, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                gap: 0;
+                padding: 5rem 2rem 2rem;
+                transition: right 0.3s ease;
+                z-index: 1000;
+            }
+
+            nav.active {
+                right: 0;
+            }
+
+            nav a {
+                color: white;
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                font-size: 1.1rem;
+            }
+
+            nav a::after {
+                display: none;
+            }
+
+            .page-header {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .page-header p {
+                font-size: 1rem;
+            }
+
+            .products-section {
+                padding: 2rem 1.25rem;
+            }
+
+            .product-card {
+                padding: 2rem 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .product-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .product-content.reverse {
+                direction: ltr;
+            }
+
+            .product-info h2 {
+                font-size: 1.75rem;
+            }
+
+            .product-description {
+                font-size: 1rem;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        html {
+            scroll-padding-top: 80px;
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <h1><a href="index.html">Volhard</a></h1>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav id="mainNav">
+            <a href="index.html">Home</a>
+            <a href="products.html">Products</a>
+            <a href="index.html#services">Services</a>
+            <a href="index.html#client-reviews">Reviews</a>
+            <a href="index.html#contact">Contact</a>
+        </nav>
+    </header>
+
+    <div class="page-header">
+        <h1>Our Products</h1>
+        <p>Innovative solutions built on Microsoft Power Platform to transform your business operations</p>
+    </div>
+
+    <div class="products-section">
+        <!-- OneDesk -->
+        <div class="product-card fade-in">
+            <div class="product-content">
+                <div class="product-info">
+                    <span class="product-badge">IT Ticket Management</span>
+                    <h2>OneDesk</h2>
+                    <p class="product-description">Modern ticket management solution designed to streamline issues, track progress, and deliver faster resolutions — all within Microsoft Power Platform.</p>
+
+                    <ul class="product-features">
+                        <li>Centralized ticket management system</li>
+                        <li>Real-time progress tracking</li>
+                        <li>Automated workflow processes</li>
+                        <li>Microsoft Power Platform integration</li>
+                        <li>Custom reporting and analytics</li>
+                    </ul>
+
+                    <a href="https://thatoseluku.github.io/onedesk-site/" class="btn btn-primary">
+                        <span>Explore OneDesk</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="position: relative; z-index: 1;">
+                            <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="product-image">
+                    <img src="./Assets/OneDesk/onedesk-logo.png" alt="OneDesk Platform">
+                </div>
+            </div>
+        </div>
+
+        <!-- PulseHire -->
+        <div class="product-card fade-in">
+            <div class="product-content reverse">
+                <div class="product-info">
+                    <span class="product-badge">Smart Hiring Solution</span>
+                    <h2>PulseHire</h2>
+                    <p class="product-description">Data-driven candidate scoring platform built on Microsoft Power Platform. Reduce bias and identify top talent efficiently with intelligent analytics.</p>
+
+                    <ul class="product-features">
+                        <li>Objective candidate scoring system</li>
+                        <li>Bias reduction through data-driven insights</li>
+                        <li>Automated candidate evaluation</li>
+                        <li>Customizable scoring criteria</li>
+                        <li>Seamless Microsoft ecosystem integration</li>
+                    </ul>
+
+                    <a href="#" class="btn btn-primary">
+                        <span>Learn About PulseHire</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="position: relative; z-index: 1;">
+                            <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="product-image">
+                    <img src="./Assets/PulseHire/1.png" alt="PulseHire Platform">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Volhard Consulting. All rights reserved. | Empowering Digital Transformation</p>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mainNav = document.getElementById('mainNav');
+        const navLinks = mainNav.querySelectorAll('a');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenuToggle.classList.toggle('active');
+            mainNav.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuToggle.classList.remove('active');
+                mainNav.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mainNav.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                mobileMenuToggle.classList.remove('active');
+                mainNav.classList.remove('active');
+            }
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
