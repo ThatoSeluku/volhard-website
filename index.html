@@ -856,22 +856,28 @@
             }
 
             .hero {
-                padding: 5rem 1.25rem 2rem;
+                padding: 5rem 1.25rem 4rem;
                 min-height: auto;
             }
 
             .hero-eyebrow {
                 font-size: 0.75rem;
                 padding: 0.4rem 0.875rem;
+                margin-bottom: 1rem;
             }
 
             .hero-container {
                 gap: 2rem;
             }
 
+            .hero-content {
+                padding-bottom: 2rem;
+            }
+
             .hero h2 {
                 font-size: 2rem;
                 line-height: 1.15;
+                margin-bottom: 1rem;
             }
 
             .hero p {
@@ -879,15 +885,30 @@
                 margin-bottom: 1.5rem;
             }
 
+            .hero-visual-mobile {
+                margin-bottom: 1.5rem;
+            }
+
             .cta-group {
                 gap: 0.75rem;
+                margin-top: 1.5rem;
             }
 
             .btn {
-                padding: 0.875rem 1.5rem;
+                padding: 1rem 1.5rem;
                 font-size: 0.9rem;
                 width: 100%;
                 justify-content: center;
+            }
+
+            .carousel-indicators {
+                position: relative;
+                bottom: auto;
+                margin-top: 2rem;
+            }
+
+            .carousel-control {
+                top: 40%;
             }
 
             .hero-banner {
@@ -979,11 +1000,15 @@
         }
 
         /* Modern Testimonials Styles */
+        .testimonials-carousel-wrapper {
+            position: relative;
+            margin-top: 3rem;
+        }
+
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
-            margin-top: 3rem;
         }
 
         .testimonial-card-modern {
@@ -997,6 +1022,31 @@
             display: flex;
             flex-direction: column;
             gap: 1.25rem;
+        }
+
+        /* Testimonials Carousel for Mobile */
+        .testimonials-dots {
+            display: none;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .testimonial-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(17, 29, 74, 0.2);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .testimonial-dot.active {
+            background: var(--secondary);
+            width: 30px;
+            border-radius: 5px;
         }
 
         .testimonial-card-modern::before {
@@ -1103,13 +1153,42 @@
         }
 
         @media (max-width: 768px) {
+            .testimonials-carousel-wrapper {
+                overflow: hidden;
+                position: relative;
+            }
+
             .testimonials-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                scroll-behavior: smooth;
+                gap: 1rem;
+                padding: 0 1rem;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+
+            .testimonials-grid::-webkit-scrollbar {
+                display: none;
             }
 
             .testimonial-card-modern {
+                flex: 0 0 calc(100% - 2rem);
+                min-width: calc(100% - 2rem);
+                scroll-snap-align: center;
                 padding: 1.5rem;
+            }
+
+            .testimonials-dots {
+                display: flex;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .testimonials-grid {
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             }
         }
 
@@ -1470,93 +1549,98 @@
         <h3>What Clients Say</h3>
         <p class="section-intro">Trusted by industry leaders and teams worldwide</p>
 
-        <div class="testimonials-grid">
-            <!-- Testimonial 1: Anglo -->
-            <div class="testimonial-card-modern">
-                <div class="testimonial-header">
-                    <div class="testimonial-badge anglo">Anglo Project</div>
-                    <div class="testimonial-rating">
-                        <span>★★★★★</span>
+        <div class="testimonials-carousel-wrapper">
+            <div class="testimonials-grid testimonials-carousel">
+                <!-- Testimonial 1: Anglo -->
+                <div class="testimonial-card-modern testimonial-slide">
+                    <div class="testimonial-header">
+                        <div class="testimonial-badge anglo">Anglo Project</div>
+                        <div class="testimonial-rating">
+                            <span>★★★★★</span>
+                        </div>
+                    </div>
+                    <p class="testimonial-quote">"It was an absolute pleasure working with the team and I'm blown away by the quality and scope of work delivered over a short period of time. It really has surpassed all expectations."</p>
+                    <div class="testimonial-footer">
+                        <div class="testimonial-author">
+                            <div class="author-name">Joline</div>
+                            <div class="author-role">Anglo American - Design System Project</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-highlight">CSS Score: "Far exceeds expectations"</div>
+                </div>
+
+                <!-- Testimonial 2: PharmaDynamics -->
+                <div class="testimonial-card-modern testimonial-slide">
+                    <div class="testimonial-header">
+                        <div class="testimonial-badge pharma">PharmaDynamics</div>
+                        <div class="testimonial-rating">
+                            <span>★★★★★</span>
+                        </div>
+                    </div>
+                    <p class="testimonial-quote">"Thank you for your continuous commitment to ensuring that the client's requirements are met and supported in all aspects of the solution. Your hard work and efforts in delivering Project Alaska has paid off."</p>
+                    <div class="testimonial-footer">
+                        <div class="testimonial-author">
+                            <div class="author-name">Julian Maharaj</div>
+                            <div class="author-role">Project Alaska - PharmaDynamics</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-highlight">✓ Client Sign-off Received</div>
+                </div>
+
+                <!-- Testimonial 3: ICR Project -->
+                <div class="testimonial-card-modern testimonial-slide">
+                    <div class="testimonial-header">
+                        <div class="testimonial-badge icr">Team Leadership</div>
+                        <div class="testimonial-rating">
+                            <span>★★★★★</span>
+                        </div>
+                    </div>
+                    <p class="testimonial-quote">"Thank you for being an exceptional team lead and providing continued support and guidance during Project ICR. It has been a wonderful experience to collaborate and learn from you."</p>
+                    <div class="testimonial-footer">
+                        <div class="testimonial-author">
+                            <div class="author-name">Natazia Jansen Van Vuren</div>
+                            <div class="author-role">Project ICR - Thuma Mina Recognition</div>
+                        </div>
                     </div>
                 </div>
-                <p class="testimonial-quote">"It was an absolute pleasure working with the team and I'm blown away by the quality and scope of work delivered over a short period of time. It really has surpassed all expectations."</p>
-                <div class="testimonial-footer">
-                    <div class="testimonial-author">
-                        <div class="author-name">Joline</div>
-                        <div class="author-role">Anglo American - Design System Project</div>
+
+                <!-- Testimonial 4: Growth -->
+                <div class="testimonial-card-modern testimonial-slide">
+                    <div class="testimonial-header">
+                        <div class="testimonial-badge growth">Excellence Recognition</div>
+                        <div class="testimonial-rating">
+                            <span>★★★★★</span>
+                        </div>
+                    </div>
+                    <p class="testimonial-quote">"Thank you for consistently learning new skills and saying yes to any challenge in front of you. Your growth in your skillset and commitment to getting the task done is outstanding."</p>
+                    <div class="testimonial-footer">
+                        <div class="testimonial-author">
+                            <div class="author-name">Julian Maharaj</div>
+                            <div class="author-role">Professional Development Recognition</div>
+                        </div>
                     </div>
                 </div>
-                <div class="testimonial-highlight">CSS Score: "Far exceeds expectations"</div>
+
+                <!-- Testimonial 5: International -->
+                <div class="testimonial-card-modern testimonial-slide">
+                    <div class="testimonial-header">
+                        <div class="testimonial-badge international">International Client</div>
+                        <div class="testimonial-rating">
+                            <span>★★★★★</span>
+                        </div>
+                    </div>
+                    <p class="testimonial-quote">"It was great working with him! I will be using him again soon!"</p>
+                    <div class="testimonial-footer">
+                        <div class="testimonial-author">
+                            <div class="author-name">Nick F.</div>
+                            <div class="author-role">United States - Upwork Client</div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Testimonial 2: PharmaDynamics -->
-            <div class="testimonial-card-modern">
-                <div class="testimonial-header">
-                    <div class="testimonial-badge pharma">PharmaDynamics</div>
-                    <div class="testimonial-rating">
-                        <span>★★★★★</span>
-                    </div>
-                </div>
-                <p class="testimonial-quote">"Thank you for your continuous commitment to ensuring that the client's requirements are met and supported in all aspects of the solution. Your hard work and efforts in delivering Project Alaska has paid off."</p>
-                <div class="testimonial-footer">
-                    <div class="testimonial-author">
-                        <div class="author-name">Julian Maharaj</div>
-                        <div class="author-role">Project Alaska - PharmaDynamics</div>
-                    </div>
-                </div>
-                <div class="testimonial-highlight">✓ Client Sign-off Received</div>
-            </div>
-
-            <!-- Testimonial 3: ICR Project -->
-            <div class="testimonial-card-modern">
-                <div class="testimonial-header">
-                    <div class="testimonial-badge icr">Team Leadership</div>
-                    <div class="testimonial-rating">
-                        <span>★★★★★</span>
-                    </div>
-                </div>
-                <p class="testimonial-quote">"Thank you for being an exceptional team lead and providing continued support and guidance during Project ICR. It has been a wonderful experience to collaborate and learn from you."</p>
-                <div class="testimonial-footer">
-                    <div class="testimonial-author">
-                        <div class="author-name">Natazia Jansen Van Vuren</div>
-                        <div class="author-role">Project ICR - Thuma Mina Recognition</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Testimonial 4: Growth -->
-            <div class="testimonial-card-modern">
-                <div class="testimonial-header">
-                    <div class="testimonial-badge growth">Excellence Recognition</div>
-                    <div class="testimonial-rating">
-                        <span>★★★★★</span>
-                    </div>
-                </div>
-                <p class="testimonial-quote">"Thank you for consistently learning new skills and saying yes to any challenge in front of you. Your growth in your skillset and commitment to getting the task done is outstanding."</p>
-                <div class="testimonial-footer">
-                    <div class="testimonial-author">
-                        <div class="author-name">Julian Maharaj</div>
-                        <div class="author-role">Professional Development Recognition</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Testimonial 5: International -->
-            <div class="testimonial-card-modern">
-                <div class="testimonial-header">
-                    <div class="testimonial-badge international">International Client</div>
-                    <div class="testimonial-rating">
-                        <span>★★★★★</span>
-                    </div>
-                </div>
-                <p class="testimonial-quote">"It was great working with him! I will be using him again soon!"</p>
-                <div class="testimonial-footer">
-                    <div class="testimonial-author">
-                        <div class="author-name">Nick F.</div>
-                        <div class="author-role">United States - Upwork Client</div>
-                    </div>
-                </div>
-            </div>
+            <!-- Testimonials Navigation -->
+            <div class="testimonials-dots"></div>
         </div>
     </section>
     
@@ -1754,6 +1838,54 @@
                 header.classList.remove('scrolled');
             }
         });
+
+        // Testimonials Carousel
+        const testimonialsCarousel = document.querySelector('.testimonials-carousel');
+        const testimonialSlides = document.querySelectorAll('.testimonial-slide');
+        const dotsContainer = document.querySelector('.testimonials-dots');
+
+        if (testimonialsCarousel && testimonialSlides.length > 0) {
+            // Create dots
+            testimonialSlides.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.classList.add('testimonial-dot');
+                if (index === 0) dot.classList.add('active');
+                dot.setAttribute('aria-label', `Go to testimonial ${index + 1}`);
+                dot.addEventListener('click', () => {
+                    scrollToTestimonial(index);
+                });
+                dotsContainer.appendChild(dot);
+            });
+
+            const dots = document.querySelectorAll('.testimonial-dot');
+
+            function scrollToTestimonial(index) {
+                const slideWidth = testimonialSlides[0].offsetWidth;
+                const gap = 16; // 1rem gap
+                testimonialsCarousel.scrollTo({
+                    left: (slideWidth + gap) * index,
+                    behavior: 'smooth'
+                });
+            }
+
+            function updateActiveDot() {
+                const scrollLeft = testimonialsCarousel.scrollLeft;
+                const slideWidth = testimonialSlides[0].offsetWidth;
+                const gap = 16;
+                const currentIndex = Math.round(scrollLeft / (slideWidth + gap));
+
+                dots.forEach((dot, index) => {
+                    if (index === currentIndex) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            }
+
+            // Update dots on scroll
+            testimonialsCarousel.addEventListener('scroll', updateActiveDot);
+        }
 
         // Fade in animation on scroll
         const observerOptions = {
