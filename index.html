@@ -554,28 +554,16 @@
             border-color: rgba(69, 240, 223, 0.3);
         }
 
-        /* Mobile: Horizontal scrollable stats - Added for mobile engagement */
+        /* Mobile: Stacked stats for better readability - Improved for mobile engagement */
         @media (max-width: 768px) {
             .stats-grid {
-                display: flex;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                gap: 1rem;
-                padding: 0 1rem;
-                margin-left: -2rem;
-                margin-right: -2rem;
-                scrollbar-width: none;
-                -ms-overflow-style: none;
-            }
-
-            .stats-grid::-webkit-scrollbar {
-                display: none;
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+                margin-top: 2rem;
             }
 
             .stat-item {
-                flex: 0 0 70%;
-                scroll-snap-align: center;
-                min-width: 250px;
+                padding: 1.5rem 1.25rem;
             }
         }
 
@@ -1035,7 +1023,7 @@
         .certifications-carousel {
             display: flex;
             gap: 2rem;
-            animation: scroll-certifications 30s linear infinite;
+            animation: scroll-certifications 15s linear infinite;
         }
 
         .certifications-carousel:hover {
@@ -1062,7 +1050,7 @@
             }
 
             .certifications-carousel {
-                animation: scroll-certifications 20s linear infinite;
+                animation: scroll-certifications 10s linear infinite;
             }
         }
 
@@ -2456,55 +2444,6 @@
             setTimeout(() => {
                 startPowerBIAutoRotate();
             }, 1500);
-        }
-
-        // Auto-scroll for "Trusted by Industry Leaders" stats on mobile - Added for engagement
-        const statsGrid = document.querySelector('.stats-grid');
-        let statsAutoScrollInterval = null;
-
-        function startStatsAutoScroll() {
-            // Only auto-scroll on mobile
-            if (window.innerWidth <= 768 && statsGrid) {
-                let scrollPosition = 0;
-                const scrollStep = 1;
-                const statItems = statsGrid.querySelectorAll('.stat-item');
-
-                if (statItems.length === 0) return;
-
-                statsAutoScrollInterval = setInterval(() => {
-                    scrollPosition += scrollStep;
-                    statsGrid.scrollLeft = scrollPosition;
-
-                    // Reset when reaching the end
-                    if (scrollPosition >= statsGrid.scrollWidth - statsGrid.clientWidth) {
-                        scrollPosition = 0;
-                        statsGrid.scrollLeft = 0;
-                    }
-                }, 30);
-            }
-        }
-
-        function stopStatsAutoScroll() {
-            if (statsAutoScrollInterval) {
-                clearInterval(statsAutoScrollInterval);
-                statsAutoScrollInterval = null;
-            }
-        }
-
-        // Start auto-scroll on mobile, pause on touch
-        if (statsGrid) {
-            startStatsAutoScroll();
-
-            statsGrid.addEventListener('touchstart', stopStatsAutoScroll);
-            statsGrid.addEventListener('touchend', () => {
-                setTimeout(startStatsAutoScroll, 3000);
-            });
-
-            // Restart on resize if mobile
-            window.addEventListener('resize', () => {
-                stopStatsAutoScroll();
-                startStatsAutoScroll();
-            });
         }
 
         // Mobile Menu Toggle
