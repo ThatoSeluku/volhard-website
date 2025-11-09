@@ -999,6 +999,349 @@
             scroll-padding-top: 80px;
         }
 
+        /* Core Service Section - Power BI Reports */
+        .core-service-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .core-service-image {
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+            border: 2px solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-magenta) 100%) border-box;
+            box-shadow: var(--shadow-hover);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+        }
+
+        .core-service-image:hover {
+            transform: translateY(-8px) rotateY(2deg);
+            box-shadow: 0 20px 60px rgba(17, 29, 74, 0.25), 0 0 30px rgba(62, 229, 227, 0.2);
+        }
+
+        @media (min-width: 768px) {
+            .core-service-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+            }
+        }
+
+        /* Power BI Carousel Styles */
+        .powerbi-carousel-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .powerbi-carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+            pointer-events: none;
+        }
+
+        .powerbi-carousel-slide.active {
+            opacity: 1;
+            pointer-events: all;
+            position: relative;
+        }
+
+        .powerbi-brand-badge {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            padding: 0.625rem 1.25rem;
+            border-radius: 100px;
+            font-size: 0.875rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+        }
+
+        .powerbi-carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid rgba(17, 29, 74, 0.1);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+
+        .powerbi-carousel-control:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .powerbi-carousel-control svg {
+            color: var(--primary);
+            transition: color 0.3s ease;
+        }
+
+        /* Brand-specific control colors */
+        .powerbi-carousel-control.brand-coca-cola {
+            border-color: rgba(244, 0, 9, 0.3);
+        }
+
+        .powerbi-carousel-control.brand-coca-cola:hover {
+            border-color: #F40009;
+        }
+
+        .powerbi-carousel-control.brand-coca-cola svg {
+            color: #F40009;
+        }
+
+        .powerbi-carousel-control.brand-mtn {
+            border-color: rgba(255, 209, 0, 0.5);
+        }
+
+        .powerbi-carousel-control.brand-mtn:hover {
+            border-color: #FFD100;
+        }
+
+        .powerbi-carousel-control.brand-mtn svg {
+            color: #FFD100;
+        }
+
+        .powerbi-carousel-control.brand-facebook {
+            border-color: rgba(24, 119, 242, 0.3);
+        }
+
+        .powerbi-carousel-control.brand-facebook:hover {
+            border-color: #1877F2;
+        }
+
+        .powerbi-carousel-control.brand-facebook svg {
+            color: #1877F2;
+        }
+
+        .powerbi-carousel-control.prev {
+            left: 1rem;
+        }
+
+        .powerbi-carousel-control.next {
+            right: 1rem;
+        }
+
+        .powerbi-carousel-indicators {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.75rem;
+            z-index: 10;
+        }
+
+        .powerbi-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 2px solid rgba(17, 29, 74, 0.3);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .powerbi-indicator:hover {
+            transform: scale(1.2);
+        }
+
+        .powerbi-indicator.active {
+            width: 28px;
+            border-radius: 5px;
+        }
+
+        /* Brand-specific indicator colors */
+        .powerbi-indicator[data-powerbi-slide="0"] {
+            border-color: rgba(244, 0, 9, 0.3);
+        }
+
+        .powerbi-indicator[data-powerbi-slide="0"]:hover {
+            background: rgba(244, 0, 9, 0.5);
+        }
+
+        .powerbi-indicator[data-powerbi-slide="0"].active {
+            background: #F40009;
+            border-color: #F40009;
+        }
+
+        .powerbi-indicator[data-powerbi-slide="1"] {
+            border-color: rgba(255, 209, 0, 0.5);
+        }
+
+        .powerbi-indicator[data-powerbi-slide="1"]:hover {
+            background: rgba(255, 209, 0, 0.6);
+        }
+
+        .powerbi-indicator[data-powerbi-slide="1"].active {
+            background: #FFD100;
+            border-color: #FFD100;
+        }
+
+        .powerbi-indicator[data-powerbi-slide="2"] {
+            border-color: rgba(24, 119, 242, 0.3);
+        }
+
+        .powerbi-indicator[data-powerbi-slide="2"]:hover {
+            background: rgba(24, 119, 242, 0.5);
+        }
+
+        .powerbi-indicator[data-powerbi-slide="2"].active {
+            background: #1877F2;
+            border-color: #1877F2;
+        }
+
+        @media (max-width: 768px) {
+            /* Core Service Grid Mobile */
+            .core-service-grid {
+                gap: 2rem;
+            }
+
+            .core-service-grid > div {
+                order: unset !important;
+            }
+
+            .core-service-grid > div:first-child {
+                order: 1 !important;
+            }
+
+            .core-service-grid > div:last-child {
+                order: 2 !important;
+            }
+
+            /* Power BI Carousel Mobile */
+            .powerbi-carousel-container {
+                margin: 0 -1rem;
+            }
+
+            .powerbi-carousel-control {
+                width: 40px;
+                height: 40px;
+            }
+
+            .powerbi-carousel-control.prev {
+                left: 0.5rem;
+            }
+
+            .powerbi-carousel-control.next {
+                right: 0.5rem;
+            }
+
+            .powerbi-carousel-control svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .powerbi-brand-badge {
+                top: 1rem;
+                right: 1rem;
+                padding: 0.5rem 1rem;
+                font-size: 0.75rem;
+            }
+
+            .powerbi-carousel-indicators {
+                bottom: 1rem;
+                gap: 0.5rem;
+            }
+
+            .powerbi-indicator {
+                width: 8px;
+                height: 8px;
+            }
+
+            .powerbi-indicator.active {
+                width: 24px;
+                height: 8px;
+            }
+
+            /* Core Service Image Mobile */
+            .core-service-image {
+                border-radius: 12px;
+            }
+
+            .core-service-image:hover {
+                transform: translateY(-4px);
+            }
+
+            /* Text Content Mobile Optimization */
+            .core-service-grid p {
+                font-size: 1rem !important;
+                line-height: 1.7 !important;
+            }
+
+            .core-service-grid .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 640px) {
+            /* Even smaller mobile devices */
+            .powerbi-carousel-control {
+                width: 36px;
+                height: 36px;
+            }
+
+            .powerbi-carousel-control svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .powerbi-carousel-control.prev {
+                left: 0.25rem;
+            }
+
+            .powerbi-carousel-control.next {
+                right: 0.25rem;
+            }
+
+            .powerbi-brand-badge {
+                top: 0.75rem;
+                right: 0.75rem;
+                padding: 0.4rem 0.875rem;
+                font-size: 0.688rem;
+            }
+
+            .powerbi-carousel-indicators {
+                bottom: 0.75rem;
+            }
+
+            /* Core Service Grid Small Mobile */
+            .core-service-grid {
+                gap: 1.5rem;
+            }
+
+            .core-service-grid p {
+                font-size: 0.938rem !important;
+                margin-bottom: 1rem !important;
+            }
+
+            .core-service-grid p:last-of-type {
+                margin-bottom: 1.5rem !important;
+            }
+        }
+
         /* Modern Testimonials Styles */
         .testimonials-carousel-wrapper {
             position: relative;
@@ -1545,6 +1888,93 @@
         </div>
     </section>
 
+    <!-- Core Service Section - Power BI Reports -->
+    <section class="section fade-in" style="background: linear-gradient(135deg, #FAFBFC 0%, var(--neutral-light) 100%);">
+        <h3>Core Service — Branded Power BI Reports</h3>
+        <p class="section-intro" style="margin-bottom: 1rem;">Where analytics meets brand identity.</p>
+
+        <div class="core-service-grid">
+            <!-- Text Content Column -->
+            <div style="order: 2;">
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text); margin-bottom: 1.5rem;">
+                    In many organisations, even the most valuable reports get lost in translation due to inconsistent design and lack of brand alignment.
+                </p>
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text); margin-bottom: 1.5rem;">
+                    Volhard creates custom PBIX files built around your corporate identity — typography, iconography, and imagery included.
+                </p>
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text); margin-bottom: 2rem; font-weight: 600;">
+                    The result? Every insight feels like part of your brand story.
+                </p>
+                <a href="#contact" class="btn btn-primary">
+                    <span>Request a Custom PBIX Design</span>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="position: relative; z-index: 1;">
+                        <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Image Carousel Column -->
+            <div style="order: 1; perspective: 1200px; position: relative;">
+                <div class="powerbi-carousel-container">
+                    <!-- Slide 1: Coca-Cola -->
+                    <div class="powerbi-carousel-slide active">
+                        <img
+                            src="./assets/PowerBI/CocaColaPBIXExample.png"
+                            alt="Coca-Cola Branded Power BI Report"
+                            class="core-service-image"
+                        >
+                        <div class="powerbi-brand-badge" style="background: linear-gradient(135deg, #F40009 0%, #D90007 100%);">
+                            <span style="color: #FFFFFF; font-weight: 700;">Coca-Cola</span>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: MTN -->
+                    <div class="powerbi-carousel-slide">
+                        <img
+                            src="./assets/PowerBI/MTNPBIXExample.png"
+                            alt="MTN Branded Power BI Report"
+                            class="core-service-image"
+                        >
+                        <div class="powerbi-brand-badge" style="background: linear-gradient(135deg, #FFD100 0%, #FFC700 100%);">
+                            <span style="color: #004C9B; font-weight: 700;">MTN</span>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Facebook -->
+                    <div class="powerbi-carousel-slide">
+                        <img
+                            src="./assets/PowerBI/FacebookPBIXExample.png"
+                            alt="Facebook Branded Power BI Report"
+                            class="core-service-image"
+                        >
+                        <div class="powerbi-brand-badge" style="background: linear-gradient(135deg, #1877F2 0%, #0C63D4 100%);">
+                            <span style="color: #FFFFFF; font-weight: 700;">Facebook</span>
+                        </div>
+                    </div>
+
+                    <!-- Carousel Controls -->
+                    <button class="powerbi-carousel-control prev" aria-label="Previous example">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button class="powerbi-carousel-control next" aria-label="Next example">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+
+                    <!-- Carousel Indicators -->
+                    <div class="powerbi-carousel-indicators">
+                        <button class="powerbi-indicator active" data-powerbi-slide="0" aria-label="Show Coca-Cola example"></button>
+                        <button class="powerbi-indicator" data-powerbi-slide="1" aria-label="Show MTN example"></button>
+                        <button class="powerbi-indicator" data-powerbi-slide="2" aria-label="Show Facebook example"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="client-reviews" class="section fade-in" style="background: var(--surface);">
         <h3>What Clients Say</h3>
         <p class="section-intro">Trusted by industry leaders and teams worldwide</p>
@@ -1802,6 +2232,147 @@
         setTimeout(() => {
             startAutoRotate();
         }, 1000);
+
+        // Power BI Carousel functionality
+        let currentPowerBISlide = 0;
+        const powerBISlides = document.querySelectorAll('.powerbi-carousel-slide');
+        const powerBIIndicators = document.querySelectorAll('.powerbi-indicator');
+        const totalPowerBISlides = powerBISlides.length;
+        let powerBIAutoRotateInterval = null;
+        let isPowerBIAutoRotating = false;
+
+        function showPowerBISlide(index) {
+            // Normalize index to be within bounds
+            if (index < 0) index = totalPowerBISlides - 1;
+            if (index >= totalPowerBISlides) index = 0;
+
+            // Remove active class from all slides and indicators
+            powerBISlides.forEach(slide => slide.classList.remove('active'));
+            powerBIIndicators.forEach(indicator => indicator.classList.remove('active'));
+
+            // Add active class to current slide and indicator
+            powerBISlides[index].classList.add('active');
+            powerBIIndicators[index].classList.add('active');
+            currentPowerBISlide = index;
+
+            // Update control colors based on active slide
+            const powerBIPrevBtn = document.querySelector('.powerbi-carousel-control.prev');
+            const powerBINextBtn = document.querySelector('.powerbi-carousel-control.next');
+
+            if (powerBIPrevBtn && powerBINextBtn) {
+                // Remove all brand classes
+                powerBIPrevBtn.classList.remove('brand-coca-cola', 'brand-mtn', 'brand-facebook');
+                powerBINextBtn.classList.remove('brand-coca-cola', 'brand-mtn', 'brand-facebook');
+
+                // Add brand class based on current slide
+                const brandClasses = ['brand-coca-cola', 'brand-mtn', 'brand-facebook'];
+                powerBIPrevBtn.classList.add(brandClasses[index]);
+                powerBINextBtn.classList.add(brandClasses[index]);
+            }
+        }
+
+        function nextPowerBISlide() {
+            const next = (currentPowerBISlide + 1) % totalPowerBISlides;
+            showPowerBISlide(next);
+        }
+
+        function prevPowerBISlide() {
+            const prev = (currentPowerBISlide - 1 + totalPowerBISlides) % totalPowerBISlides;
+            showPowerBISlide(prev);
+        }
+
+        function startPowerBIAutoRotate() {
+            if (isPowerBIAutoRotating) return;
+            isPowerBIAutoRotating = true;
+            powerBIAutoRotateInterval = setInterval(() => {
+                nextPowerBISlide();
+            }, 4000); // Change slide every 4 seconds
+        }
+
+        function stopPowerBIAutoRotate() {
+            if (powerBIAutoRotateInterval) {
+                clearInterval(powerBIAutoRotateInterval);
+                powerBIAutoRotateInterval = null;
+            }
+            isPowerBIAutoRotating = false;
+        }
+
+        function resetPowerBIAutoRotate() {
+            stopPowerBIAutoRotate();
+            startPowerBIAutoRotate();
+        }
+
+        // Event listeners for Power BI carousel controls
+        const powerBIPrevBtn = document.querySelector('.powerbi-carousel-control.prev');
+        const powerBINextBtn = document.querySelector('.powerbi-carousel-control.next');
+
+        if (powerBIPrevBtn) {
+            powerBIPrevBtn.addEventListener('click', () => {
+                prevPowerBISlide();
+                resetPowerBIAutoRotate();
+            });
+        }
+
+        if (powerBINextBtn) {
+            powerBINextBtn.addEventListener('click', () => {
+                nextPowerBISlide();
+                resetPowerBIAutoRotate();
+            });
+        }
+
+        // Event listeners for Power BI indicators
+        powerBIIndicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                showPowerBISlide(index);
+                resetPowerBIAutoRotate();
+            });
+        });
+
+        // Pause auto-rotation on hover
+        const powerBICarouselContainer = document.querySelector('.powerbi-carousel-container');
+        if (powerBICarouselContainer) {
+            powerBICarouselContainer.addEventListener('mouseenter', () => {
+                stopPowerBIAutoRotate();
+            });
+
+            powerBICarouselContainer.addEventListener('mouseleave', () => {
+                startPowerBIAutoRotate();
+            });
+
+            // Touch support for mobile
+            let powerBITouchStartX = 0;
+            let powerBITouchEndX = 0;
+
+            powerBICarouselContainer.addEventListener('touchstart', (e) => {
+                powerBITouchStartX = e.changedTouches[0].screenX;
+                stopPowerBIAutoRotate();
+            });
+
+            powerBICarouselContainer.addEventListener('touchend', (e) => {
+                powerBITouchEndX = e.changedTouches[0].screenX;
+                handlePowerBISwipe();
+                setTimeout(() => {
+                    startPowerBIAutoRotate();
+                }, 500);
+            });
+
+            function handlePowerBISwipe() {
+                const swipeThreshold = 50;
+                if (powerBITouchStartX - powerBITouchEndX > swipeThreshold) {
+                    nextPowerBISlide();
+                } else if (powerBITouchEndX - powerBITouchStartX > swipeThreshold) {
+                    prevPowerBISlide();
+                }
+            }
+
+            // Initialize controls with correct brand color
+            showPowerBISlide(0);
+
+            // Start auto-rotation for Power BI carousel
+            setTimeout(() => {
+                startPowerBIAutoRotate();
+            }, 1500);
+        }
 
         // Mobile Menu Toggle
         const mobileMenuToggle = document.getElementById('mobileMenuToggle');
