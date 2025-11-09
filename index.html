@@ -554,6 +554,31 @@
             border-color: rgba(69, 240, 223, 0.3);
         }
 
+        /* Mobile: Horizontal scrollable stats - Added for mobile engagement */
+        @media (max-width: 768px) {
+            .stats-grid {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 1rem;
+                padding: 0 1rem;
+                margin-left: -2rem;
+                margin-right: -2rem;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+
+            .stats-grid::-webkit-scrollbar {
+                display: none;
+            }
+
+            .stat-item {
+                flex: 0 0 70%;
+                scroll-snap-align: center;
+                min-width: 250px;
+            }
+        }
+
         .stat-number {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 3rem;
@@ -997,6 +1022,48 @@
         /* Smooth scroll offset for fixed header */
         html {
             scroll-padding-top: 80px;
+        }
+
+        /* Industry Backed Skills - Auto-scrolling logos carousel */
+        .certifications-carousel-wrapper {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            margin-top: 2rem;
+        }
+
+        .certifications-carousel {
+            display: flex;
+            gap: 2rem;
+            animation: scroll-certifications 30s linear infinite;
+        }
+
+        .certifications-carousel:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll-certifications {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .certifications-carousel img {
+            height: 100px;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            .certifications-carousel img {
+                height: 80px;
+            }
+
+            .certifications-carousel {
+                animation: scroll-certifications 20s linear infinite;
+            }
         }
 
         /* Core Service Section - Power BI Reports */
@@ -1829,19 +1896,33 @@
         </div>
     </section>
 
+    <!-- Industry Backed Skills - Auto-scrolling carousel added for engagement -->
     <section class="tagline-section">
         <h2>Industry Backed Skills</h2>
         <p></p>
-        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; margin-top: 2rem;">
-            <img src="./assets/Certifications/AzureDataEngineer.png" alt="Azure Data Engineer" style="height: 100px;">
-            <img src="./assets/Certifications/AzureDataFundamentals.png" alt="Azure Data Fundamentals" style="height: 100px;">
-            <img src="./assets/Certifications/AzureFundamentals.png" alt="Azure AI Fundamentals" style="height: 100px;">
-            <img src="./assets/Certifications/Dynamics365Fundamentals.png" alt="Dynamics 365 Fundamentals" style="height: 100px;">
-            <img src="./assets/Certifications/PowerBIDeveloper.png" alt="Power BI Data Analyst" style="height: 100px;">
-            <img src="./assets/Certifications/PowerPlatformConsultant.png" alt="Power Platform Functional Consultant" style="height: 100px;">
-            <img src="./assets/Certifications/PowerPlatformDeveloper.png" alt="Power Platform Developer" style="height: 100px;">
-            <img src="./assets/Certifications/PowerPlatformsFunamentals.png" alt="Power Platform Fundamentals" style="height: 100px;">
-            <img src="./assets/Certifications/PowerPlatformSolutionArchitect.png" alt="Power Platform Solutions Architect" style="height: 100px;">
+        <div class="certifications-carousel-wrapper">
+            <div class="certifications-carousel">
+                <!-- Original set of logos -->
+                <img src="./assets/Certifications/AzureDataEngineer.png" alt="Azure Data Engineer">
+                <img src="./assets/Certifications/AzureDataFundamentals.png" alt="Azure Data Fundamentals">
+                <img src="./assets/Certifications/AzureFundamentals.png" alt="Azure AI Fundamentals">
+                <img src="./assets/Certifications/Dynamics365Fundamentals.png" alt="Dynamics 365 Fundamentals">
+                <img src="./assets/Certifications/PowerBIDeveloper.png" alt="Power BI Data Analyst">
+                <img src="./assets/Certifications/PowerPlatformConsultant.png" alt="Power Platform Functional Consultant">
+                <img src="./assets/Certifications/PowerPlatformDeveloper.png" alt="Power Platform Developer">
+                <img src="./assets/Certifications/PowerPlatformsFunamentals.png" alt="Power Platform Fundamentals">
+                <img src="./assets/Certifications/PowerPlatformSolutionArchitect.png" alt="Power Platform Solutions Architect">
+                <!-- Duplicate set for seamless infinite scroll -->
+                <img src="./assets/Certifications/AzureDataEngineer.png" alt="Azure Data Engineer">
+                <img src="./assets/Certifications/AzureDataFundamentals.png" alt="Azure Data Fundamentals">
+                <img src="./assets/Certifications/AzureFundamentals.png" alt="Azure AI Fundamentals">
+                <img src="./assets/Certifications/Dynamics365Fundamentals.png" alt="Dynamics 365 Fundamentals">
+                <img src="./assets/Certifications/PowerBIDeveloper.png" alt="Power BI Data Analyst">
+                <img src="./assets/Certifications/PowerPlatformConsultant.png" alt="Power Platform Functional Consultant">
+                <img src="./assets/Certifications/PowerPlatformDeveloper.png" alt="Power Platform Developer">
+                <img src="./assets/Certifications/PowerPlatformsFunamentals.png" alt="Power Platform Fundamentals">
+                <img src="./assets/Certifications/PowerPlatformSolutionArchitect.png" alt="Power Platform Solutions Architect">
+            </div>
         </div>
     </section>
 
@@ -2375,6 +2456,55 @@
             setTimeout(() => {
                 startPowerBIAutoRotate();
             }, 1500);
+        }
+
+        // Auto-scroll for "Trusted by Industry Leaders" stats on mobile - Added for engagement
+        const statsGrid = document.querySelector('.stats-grid');
+        let statsAutoScrollInterval = null;
+
+        function startStatsAutoScroll() {
+            // Only auto-scroll on mobile
+            if (window.innerWidth <= 768 && statsGrid) {
+                let scrollPosition = 0;
+                const scrollStep = 1;
+                const statItems = statsGrid.querySelectorAll('.stat-item');
+
+                if (statItems.length === 0) return;
+
+                statsAutoScrollInterval = setInterval(() => {
+                    scrollPosition += scrollStep;
+                    statsGrid.scrollLeft = scrollPosition;
+
+                    // Reset when reaching the end
+                    if (scrollPosition >= statsGrid.scrollWidth - statsGrid.clientWidth) {
+                        scrollPosition = 0;
+                        statsGrid.scrollLeft = 0;
+                    }
+                }, 30);
+            }
+        }
+
+        function stopStatsAutoScroll() {
+            if (statsAutoScrollInterval) {
+                clearInterval(statsAutoScrollInterval);
+                statsAutoScrollInterval = null;
+            }
+        }
+
+        // Start auto-scroll on mobile, pause on touch
+        if (statsGrid) {
+            startStatsAutoScroll();
+
+            statsGrid.addEventListener('touchstart', stopStatsAutoScroll);
+            statsGrid.addEventListener('touchend', () => {
+                setTimeout(startStatsAutoScroll, 3000);
+            });
+
+            // Restart on resize if mobile
+            window.addEventListener('resize', () => {
+                stopStatsAutoScroll();
+                startStatsAutoScroll();
+            });
         }
 
         // Mobile Menu Toggle
