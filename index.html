@@ -1216,6 +1216,8 @@
             /* Core Service Grid Mobile */
             .core-service-grid {
                 gap: 2rem;
+                display: flex;
+                flex-direction: column;
             }
 
             .core-service-grid > div {
@@ -1223,16 +1225,17 @@
             }
 
             .core-service-grid > div:first-child {
-                order: 1 !important;
+                order: 2 !important;
             }
 
             .core-service-grid > div:last-child {
-                order: 2 !important;
+                order: 1 !important;
             }
 
             /* Power BI Carousel Mobile */
             .powerbi-carousel-container {
-                margin: 0 -1rem;
+                margin: 0;
+                padding: 0 1rem;
             }
 
             .powerbi-carousel-control {
@@ -1241,11 +1244,11 @@
             }
 
             .powerbi-carousel-control.prev {
-                left: 0.5rem;
+                left: 1.5rem;
             }
 
             .powerbi-carousel-control.next {
-                right: 0.5rem;
+                right: 1.5rem;
             }
 
             .powerbi-carousel-control svg {
@@ -1309,11 +1312,11 @@
             }
 
             .powerbi-carousel-control.prev {
-                left: 0.25rem;
+                left: 1.25rem;
             }
 
             .powerbi-carousel-control.next {
-                right: 0.25rem;
+                right: 1.25rem;
             }
 
             .powerbi-brand-badge {
